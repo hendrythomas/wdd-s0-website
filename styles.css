@@ -1,11 +1,54 @@
 body {
   font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
 }
 
 :root {
+  --dark-1: #202020;
+  --dark-2: #404040;
+  --dark-3: #606060;
+  --dark-4: #808080;
+  --dark-text: #E6E6E6;
 }
 
 .content {
+  width:  100%;
+  height: 100%;
+  display: flex;
+  gap: 1.5px;
+  background-color: var(--dark-2);
+  /* box-shadow: 0 0 0 2px blue inset; */
+}
+
+.content-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items:     center;
+  justify-content: center;
+  background-color: var(--dark-1);
+}
+
+.content-section:has(.game) {
+  padding: 40px;
+  background-color: black;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows:    repeat(3, 1fr);
+  width: 100%;
+  aspect-ratio: 1 /1;
+  padding: 20px;
+  grid-gap: 20px;
+  box-shadow: 0 0 0 2px red;
+}
+
+.game .marker {
+  background-color: green;
+  grid-column: 2;
+  grid-row: 2;
 }
 
 
