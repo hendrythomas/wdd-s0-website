@@ -6,6 +6,25 @@ addEventListener("keydown", (e) => {
   gameUpdate(e);
 });
 
+function limitCell(cellElem, gridElem) {
+  if (gridElem === null) return;
+  if (cellElem === null) return;
+  
+  const gridStyle = window.getComputedStyle(gridElem);
+  const x = Number(window.getComputedStyle(player).gridColumn);
+  const y = Number(window.getComputedStyle(player).gridRow);
+
+  const gridWidth  = gridStyle.getPropertyValue("grid-template-columns").split(" ").length;
+  const gridHeight = gridStyle.getPropertyValue("grid-template-rows").split(" ").length;
+
+  if (x > gridWidth) {
+    cellElem.style.gridColumn = gridWidth;
+  }
+  if (y > gridHeight) {
+    cellElem.style.gridRow = gridHeight;
+  }
+}
+
 function positionGameTiles() {
   const game = document.querySelector("#game");
   if (game === null) return;
@@ -19,41 +38,51 @@ function positionGameTiles() {
 }
 
 function gameUpdate(e) {
-  const player = document.querySelector("#player");
-  if (player === null) return;
+  const playerElem = document.querySelector("#player");
+  if (playerElem === null) return;
 
-  const x = Number(window.getComputedStyle(player).gridColumn);
-  const y = Number(window.getComputedStyle(player).gridRow);
+  const x = Number(window.getComputedStyle(playerElem).gridColumn);
+  const y = Number(window.getComputedStyle(playerElem).gridRow);
   switch (e.key) {
     case "d":
-      player.style.gridColumn = x + 1;
+      playerElem.style.gridColumn = x + 1;
       break;
     case "a":
-      player.style.gridColumn = x - 1;
+      playerElem.style.gridColumn = x - 1;
       break;
     case "s":
-      player.style.gridRow = y + 1;
+      playerElem.style.gridRow = y + 1;
       break;
     case "w":
-      player.style.gridRow = y - 1;
+      playerElem.style.gridRow = y - 1;
       break;
   }
   
+  limitTiles();
   gameReact();
+}
+
+function limitTiles() {
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+  
+  for (const tile of gameElem.children) {
+    limitCell(tile, gameElem);
+  }
 }
 
 function gameReact() {
   // player nav collision
-  const player = document.querySelector("#player");
-  if (player === null) return;
+  const playerElem = document.querySelector("#player");
+  if (playerElem === null) return;
   
-  const game = document.querySelector("#game");
-  if (game === null) return;
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
   
-  const playerX = Number(window.getComputedStyle(player).gridColumn);
-  const playerY = Number(window.getComputedStyle(player).gridRow);
+  const playerX = Number(window.getComputedStyle(playerElem).gridColumn);
+  const playerY = Number(window.getComputedStyle(playerElem).gridRow);
 
-  for (const tile of game.children) {
+  for (const tile of gameElem.children) {
     if (tile.id === "player") continue;
     
     const tileX = Number(window.getComputedStyle(tile).gridColumn);

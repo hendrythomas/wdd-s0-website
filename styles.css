@@ -31,10 +31,11 @@ body {
   align-items:     center;
   justify-content: center;
   background-color: var(--dark-1);
+  overflow: auto;
 }
 
 .content-section:has(.game) {
-  background-color: yellowgreen;
+  background-color: sienna;
 }
 
 .game {
@@ -44,15 +45,25 @@ body {
   width: 100%;
   max-width: 350px;
   aspect-ratio: 1 / 2;
-  padding: 40px;
-  box-shadow: 0 0 0 1px red inset;
+  /* padding: 40px; */
+}
+@media screen and (max-width: 600px) {
+  .game {
+    width: unset;
+    height: 100%;
+    aspect-ratio: 1 / 2;
+  }
 }
 
 .game .player {
-  background-color: green;
+  width:  100%;
+  height: 100%;
   z-index: 1;
+  image-rendering: pixelated;
 }
 .game .nav-button {
+  width:  100%;
+  height: 100%;
   background-color: yellow;
   z-index: 0;
 }
