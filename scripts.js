@@ -111,7 +111,7 @@ function gameLimitTiles() {
 }
 
 function gameReact() {
-  // player nav collision
+  // player tile collision
   const playerElem = document.querySelector("#player");
   if (playerElem === null) return;
   

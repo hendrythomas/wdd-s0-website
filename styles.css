@@ -45,7 +45,6 @@ body {
   width: 80%;
   max-width: 350px;
   aspect-ratio: 1 / 2;
-  /* padding: 40px; */
 }
 @media screen and (max-width: 600px) {
   .game {
@@ -61,6 +60,10 @@ body {
   overflow: hidden;
 }
 .game .player {
+  z-index: 2;
+  pointer-events: none;
+}
+.game .car {
   z-index: 1;
   pointer-events: none;
 }
