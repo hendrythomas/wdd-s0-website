@@ -1,16 +1,28 @@
+let gameWidth;
+let gameLength;
+
 document.addEventListener("DOMContentLoaded", () => {
   positionGameTiles();
+
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+  const gameStyle = window.getComputedStyle(gameElem);
+  gameWidth  = gameStyle.getPropertyValue("grid-template-columns").split(" ").length;
+  gameHeight = gameStyle.getPropertyValue("grid-template-rows").split(" ").length;
 });
 
 addEventListener("keydown", (e) => {
   gameUpdate(e);
 });
 
-function positionGameTiles() {
-  const game = document.querySelector("#game");
-  if (game === null) return;
 
-  for (const tile of game.children) {
+// game
+
+function positionGameTiles() {
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+
+  for (const tile of gameElem.children) {
     const placeX = tile.getAttribute("data-x");
     const placeY = tile.getAttribute("data-y");
     tile.style.gridColumn = placeX;
@@ -39,7 +51,24 @@ function gameUpdate(e) {
       break;
   }
   
+  gameLimitTiles();
   gameReact();
+}
+
+function gameLimitTiles() {
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+
+  for (const tile of gameElem.children) {
+    const x = Number(window.getComputedStyle(tile).gridColumn);
+    const y = Number(window.getComputedStyle(tile).gridRow);
+    if (x > gameWidth) {
+      tile.style.gridColumn = gameWidth;
+    }
+    if (y > gameHeight) {
+      tile.style.gridRow = gameHeight;
+    }
+  }
 }
 
 function gameReact() {
