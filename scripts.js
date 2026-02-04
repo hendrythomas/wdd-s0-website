@@ -6,25 +6,6 @@ addEventListener("keydown", (e) => {
   gameUpdate(e);
 });
 
-function limitCell(cellElem, gridElem) {
-  if (gridElem === null) return;
-  if (cellElem === null) return;
-  
-  const gridStyle = window.getComputedStyle(gridElem);
-  const x = Number(window.getComputedStyle(player).gridColumn);
-  const y = Number(window.getComputedStyle(player).gridRow);
-
-  const gridWidth  = gridStyle.getPropertyValue("grid-template-columns").split(" ").length;
-  const gridHeight = gridStyle.getPropertyValue("grid-template-rows").split(" ").length;
-
-  if (x > gridWidth) {
-    cellElem.style.gridColumn = gridWidth;
-  }
-  if (y > gridHeight) {
-    cellElem.style.gridRow = gridHeight;
-  }
-}
-
 function positionGameTiles() {
   const game = document.querySelector("#game");
   if (game === null) return;
@@ -58,17 +39,7 @@ function gameUpdate(e) {
       break;
   }
   
-  limitTiles();
   gameReact();
-}
-
-function limitTiles() {
-  const gameElem = document.querySelector("#game");
-  if (gameElem === null) return;
-  
-  for (const tile of gameElem.children) {
-    limitCell(tile, gameElem);
-  }
 }
 
 function gameReact() {
