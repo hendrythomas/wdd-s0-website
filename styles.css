@@ -55,16 +55,23 @@ body {
   }
 }
 
-.game .player {
+.game > * {
   width:  100%;
   height: 100%;
+  overflow: hidden;
+}
+.game .player {
   z-index: 1;
 }
-.game .nav-button {
+.game .nav-item {
+  z-index: 0;
+}
+
+.game > * > * {
   width:  100%;
   height: 100%;
-  background-color: yellow;
-  z-index: 0;
+  object-fit: fill;
+  image-rendering: pixelated;
 }
 
 .main {
@@ -83,9 +90,15 @@ body {
   line-height: 20px;
   color: var(--dark-text);
   font-family: monospace;
-}
-.main-item:not(:target) {
   display: none;
+}
+.main-item:target {
+  display: block;
+  animation: main-item-appear 0.3s ease-out;
+}
+@keyframes main-item-appear {
+    0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 h2 {
