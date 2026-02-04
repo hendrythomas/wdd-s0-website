@@ -16,7 +16,7 @@ body {
   height: 100%;
   display: flex;
   gap: 2px;
-  background-color: var(--dark-2);
+  background-color: var(--dark-3);
 }
 
 .content-section {
@@ -34,31 +34,43 @@ body {
 
 .game {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows:    repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows:    repeat(10, 1fr);
   width: 100%;
-  max-width: 400px;
-  aspect-ratio: 1 / 1;
+  max-width: 350px;
+  aspect-ratio: 1 / 2;
   padding: 40px;
-  grid-gap: 20px;
   box-shadow: 0 0 0 1px red inset;
 }
 
-.game .marker {
+.game .player {
   background-color: green;
-  grid-column: 2;
-  grid-row: 2;
+  z-index: 1;
+}
+.game .nav-button {
+  background-color: yellow;
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .main {
   width:  100%;
   height: 100%;
   padding: 25px;
+  line-height: 20px;
   color: var(--dark-text);
+  font-family: monospace;
 }
 
 .main :first-child {
   margin-top: 0;
+}
+
+h2 {
+  font-size: inherit;
+}
+h2::before {
+  content: "// ";
 }
 
 
