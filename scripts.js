@@ -1,20 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
-  positionGameTiles();
   saveGameSize();
+  positionGameTiles();
 });
 
-setInterval(updateGame, 2000);
+setInterval(updateGame, 500);
 
 addEventListener("keydown", (e) => {
   gameInput(e);
 });
 
+const cars = [];
+
 
 // game
 
 function updateGame() {
-  //TODO: move cars
-  console.log("nyoom");
+  gameMoveObjects();
   gameLimitTiles();
   gameReact();
 }
@@ -70,6 +71,23 @@ function gameMovePlayer(e) {
   }
 }
 
+function gameMoveObjects() {
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+
+  // move cars
+  const cars = gameElem.getElementsByClassName("car");
+  for (const car of cars) {
+    const x = Number(window.getComputedStyle(car).gridColumn);
+    if (x > 1) {
+      car.style.gridColumn = x - 1;
+    }
+    else {
+      car.style.gridColumn = gameWidth;
+    }
+  }
+}
+
 function gameLimitTiles() {
   const gameElem = document.querySelector("#game");
   if (gameElem === null) return;
@@ -109,14 +127,22 @@ function gameReact() {
     const tileX = Number(window.getComputedStyle(tile).gridColumn);
     const tileY = Number(window.getComputedStyle(tile).gridRow);
     
-    // go to tile's href
     if (playerX === tileX &&
         playerY === tileY
     ) {
+      // go to tile's href
       const tileHref = tile.getAttribute("href");
       if (tileHref === null) return;
 
       tile.click();
+
+      if (tile.classList.contains("car")) {
+        // return to spawn position
+        const playerSpawnX = playerElem.getAttribute("data-x");
+        const playerSpawnY = playerElem.getAttribute("data-y");
+        playerElem.style.gridColumn = playerSpawnX;
+        playerElem.style.gridRow    = playerSpawnY;
+      }
     }
   }
 }
