@@ -1,22 +1,23 @@
-let gameWidth;
-let gameLength;
-
 document.addEventListener("DOMContentLoaded", () => {
   positionGameTiles();
-
-  const gameElem = document.querySelector("#game");
-  if (gameElem === null) return;
-  const gameStyle = window.getComputedStyle(gameElem);
-  gameWidth  = gameStyle.getPropertyValue("grid-template-columns").split(" ").length;
-  gameHeight = gameStyle.getPropertyValue("grid-template-rows").split(" ").length;
+  saveGameSize();
 });
 
+setInterval(updateGame, 2000);
+
 addEventListener("keydown", (e) => {
-  gameUpdate(e);
+  gameInput(e);
 });
 
 
 // game
+
+function updateGame() {
+  //TODO: move cars
+  console.log("nyoom");
+  gameLimitTiles();
+  gameReact();
+}
 
 function positionGameTiles() {
   const gameElem = document.querySelector("#game");
@@ -30,7 +31,24 @@ function positionGameTiles() {
   }
 }
 
-function gameUpdate(e) {
+let gameWidth;
+let gameLength;
+
+function saveGameSize() {
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+  const gameStyle = window.getComputedStyle(gameElem);
+  gameWidth  = gameStyle.getPropertyValue("grid-template-columns").split(" ").length;
+  gameHeight = gameStyle.getPropertyValue("grid-template-rows").split(" ").length;
+}
+
+function gameInput(e) {
+  gameMovePlayer(e);
+  gameLimitTiles();
+  gameReact();
+}
+
+function gameMovePlayer(e) {
   const playerElem = document.querySelector("#player");
   if (playerElem === null) return;
 
@@ -50,9 +68,6 @@ function gameUpdate(e) {
       playerElem.style.gridRow = y - 1;
       break;
   }
-  
-  gameLimitTiles();
-  gameReact();
 }
 
 function gameLimitTiles() {
@@ -62,6 +77,12 @@ function gameLimitTiles() {
   for (const tile of gameElem.children) {
     const x = Number(window.getComputedStyle(tile).gridColumn);
     const y = Number(window.getComputedStyle(tile).gridRow);
+    if (x < 1) {
+      tile.style.gridColumn = 1;
+    }
+    if (y < 1) {
+      tile.style.gridRow = 1;
+    }
     if (x > gameWidth) {
       tile.style.gridColumn = gameWidth;
     }
@@ -88,6 +109,7 @@ function gameReact() {
     const tileX = Number(window.getComputedStyle(tile).gridColumn);
     const tileY = Number(window.getComputedStyle(tile).gridRow);
     
+    // go to tile's href
     if (playerX === tileX &&
         playerY === tileY
     ) {
