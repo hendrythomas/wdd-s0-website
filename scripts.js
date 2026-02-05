@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  insertData();
   saveGameSize();
   positionGameTiles();
 });
@@ -9,10 +10,39 @@ addEventListener("keydown", (e) => {
   gameInput(e);
 });
 
-const cars = [];
+function insertData() {
+  const nameElem = document.querySelector('[data-insert="name"]');
+  const githubElem = document.querySelector('[data-insert="github"]');
+  const birthdateElem = document.querySelector('[data-insert="birthdate"]');
+  const emojiElem = document.querySelector('[data-insert="emoji"]');
+
+  getData().then((result) => {
+    const data = result.data[0];
+
+    nameElem.textContent = data.name;
+    githubElem.textContent = data.github_handle;
+    birthdateElem.textContent = data.birthdate;
+    emojiElem.textContent = data.fav_emoji;
+  });
+}
+
+async function getData() {
+  const fdnfId = 324;
+  const url = `https://fdnd.directus.app/items/person/?filter={"id":"${fdnfId}"}`;
+  try {
+    const response = await fetch(url);
+    const result = await response.json();
+    return(result);
+  }
+  catch (error) {
+    console.error(error.message);
+  }
+}
 
 
 // game
+
+const cars = [];
 
 function updateGame() {
   gameMoveObjects();
