@@ -108,7 +108,8 @@ body {
   font-family: 'Cascadia Mono', monospace;
   display: none;
 }
-.main-item:target {
+.main-item:target,
+.main:not(:has(.main-item:target)) .main-item:not([id]) {
   display: block;
   animation: main-item-appear 0.3s ease-out;
 }
