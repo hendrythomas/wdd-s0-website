@@ -43,7 +43,7 @@ body {
 }
 
 .content-section:has(.game) {
-  background-color: sienna;
+  background-color: yellowgreen;
 }
 
 .game {
