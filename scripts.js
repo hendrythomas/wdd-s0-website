@@ -3,6 +3,11 @@ function openBubble(id) {
   bubble.showModal();
 }
 
+function closeBubble(id) {
+  const bubble = document.querySelector("#bubble");
+  bubble.close();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setGridSize();
   displayWorld();
