@@ -1,11 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   setGridSize();
   displayWorld();
-  createInput();
 });
 
 addEventListener("resize", (e) => {
   setGridSize();
+  displayWorld();
+});
+
+document.addEventListener("keydown", (e) => {
+  handleInput(e.key);
   displayWorld();
 });
 
@@ -17,10 +21,11 @@ function setGridSize() {
   // get tile size
   const gameElem = document.querySelector("#game");
   if (gameElem === null) return;
+
   const gameStyle = window.getComputedStyle(gameElem);
   const tileSizePx = gameStyle.getPropertyValue("--tile-size");
   const tileSize = parseInt(tileSizePx);
-  if (tileSize === NaN) return;
+  if (isNaN(tileSize)) return;
 
   // set grid size (uneven)
   const gameCols = 2 * Math.floor(contentElem.offsetWidth / tileSize / 2) - 1;
@@ -34,28 +39,64 @@ function displayWorld() {
   if (gameElem === null) return;
   const playerElem = gameElem.querySelector(".player");
   if (playerElem === null) return;
-  
-  // get center
+
+  // center on player
+  let playerX = Number(window.getComputedStyle(playerElem).gridColumn);
+  let playerY = Number(window.getComputedStyle(playerElem).gridRow);
+  if (isNaN(playerX)) {
+    playerX = Number(playerElem.getAttribute("data-x"));
+  }
+  if (isNaN(playerY)) {
+    playerY = Number(playerElem.getAttribute("data-y"));
+  }
+
   const gameStyle = window.getComputedStyle(gameElem);
   const gameCols = gameStyle.getPropertyValue("grid-template-columns").split(" ").length;
   const gameRows = gameStyle.getPropertyValue("grid-template-rows").split(" ").length;
-
-  const centerCol = Math.ceil(gameCols / 2);
-  const centerRow = Math.ceil(gameRows / 2);
+  const centerCol = Math.ceil(gameCols / 2) - playerX;
+  const centerRow = Math.ceil(gameRows / 2) - playerY;
   
   // place tiles
   for (const tileElem of gameElem.children) {
-    const tileX = Number(tileElem.getAttribute("data-x"));
-    const tileY = Number(tileElem.getAttribute("data-y"));
-    //TODO: return if not number
+    let tileX = Number(window.getComputedStyle(tileElem).gridColumn);
+    let tileY = Number(window.getComputedStyle(tileElem).gridRow);
+    if (isNaN(tileX)) {
+      tileX = Number(tileElem.getAttribute("data-x"));
+    }
+    if (isNaN(tileY)) {
+      tileY = Number(tileElem.getAttribute("data-y"));
+    }
     tileElem.style.gridColumn = tileX + centerCol;
     tileElem.style.gridRow    = tileY + centerRow;
   }
-  // playerElem.style.gridColumn = centerCol;
-  // playerElem.style.gridRow    = centerRow;
 }
 
-function createInput() {}
+function handleInput(key) {
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+  const playerElem = gameElem.querySelector(".player");
+  if (playerElem === null) return;
+  
+  const x = Number(playerElem.style.gridColumn);
+  const y = Number(playerElem.style.gridRow);
+  if (isNaN(x)) return;
+  if (isNaN(y)) return;
+
+  switch (key) {
+    case "d":
+      playerElem.style.gridColumn = x + 1;
+      break;
+    case "a":
+      playerElem.style.gridColumn = x - 1;
+      break;
+    case "s":
+      playerElem.style.gridRow = y + 1;
+      break;
+    case "w":
+      playerElem.style.gridRow = y - 1;
+      break;
+  }
+}
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   insertData();
