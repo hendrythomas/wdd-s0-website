@@ -15,28 +15,27 @@ body {
   display: flex;
   justify-content: center;
   align-items:     center;
-  background-color: black;
-  overflow: hidden;
+  background-color: yellowgreen;
+  /* overflow: hidden; */
 }
 
 .game {
   --cols: 5;
   --rows: 5;
-  --tileSize: 75px;
+  --tile-size: 75px;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--tile-size));
+  grid-template-rows:    repeat(var(--rows), var(--tile-size));
   height: auto;
   width:  auto;
-  display: grid;
   background-color: yellowgreen;
-  grid-template-columns: repeat(var(--cols), var(--tileSize));
-  grid-template-rows:    repeat(var(--rows), var(--tileSize));
-  gap: 4px;
-  /* box-shadow: 0 0 0 2px red inset; */
+  box-shadow: 0 0 0 2px red inset;
 }
 
-.test {
+.game > * {
   width: 100%;
   height: 100%;
-  background-color: #FF000020;
+  background-color: #FF000080;
 }
 
 

@@ -1,4 +1,42 @@
+createWorld();
 
+document.addEventListener("DOMContentLoaded", () => {
+  setGridSize();
+  displayWorld();
+  createInput();
+});
+
+addEventListener("resize", (e) => {
+  setGridSize();
+});
+
+function setGridSize() {
+  // get content rect
+  const contentElem = document.querySelector("#content");
+  if (contentElem === null) return;
+
+  // get tile size
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+  const gameStyle = window.getComputedStyle(gameElem);
+  const tileSizePx = gameStyle.getPropertyValue("--tile-size");
+  const tileSize = parseInt(tileSizePx);
+  if (tileSize === NaN) return;
+
+  // set grid size (uneven)
+  const gridCols = 2 * Math.floor(contentElem.offsetWidth / tileSize / 2) - 1;
+  const gridRows = 2 * Math.floor(contentElem.offsetHeight / tileSize / 2) - 1;
+  game.style.setProperty("--cols", gridCols);
+  game.style.setProperty("--rows", gridRows);
+}
+
+// let world = 
+function createWorld() {}
+
+function displayWorld() {
+}
+
+function createInput() {}
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   insertData();
