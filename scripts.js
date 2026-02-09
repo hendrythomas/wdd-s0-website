@@ -1,3 +1,8 @@
+function openBubble(id) {
+  const bubble = document.querySelector("#bubble");
+  bubble.showModal();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setGridSize();
   displayWorld();
@@ -10,6 +15,7 @@ addEventListener("resize", (e) => {
 
 document.addEventListener("keydown", (e) => {
   handleInput(e.key);
+  tilesReact();
   displayWorld();
 });
 
@@ -97,6 +103,34 @@ function handleInput(key) {
     case "w":
       playerElem.dataset.y = playerY - 1;
       break;
+  }
+}
+
+function tilesReact() {
+  // player tile collision
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+  const playerElem = gameElem.querySelector(".player");
+  if (playerElem === null) return;
+  
+  const playerX = Number(playerElem.getAttribute("data-x"));
+  const playerY = Number(playerElem.getAttribute("data-y"));
+  if (isNaN(playerX)) return;
+  if (isNaN(playerY)) return;
+
+  for (const tileElem of gameElem.children) {
+    if (tileElem.classList.contains("player")) continue;
+    
+    const tileX = Number(tileElem.getAttribute("data-x"));
+    const tileY = Number(tileElem.getAttribute("data-y"));
+    if (isNaN(playerX)) continue;
+    if (isNaN(playerY)) continue;
+    
+    if (playerX === tileX &&
+        playerY === tileY
+    ) {
+      tileElem.click();
+    }
   }
 }
 
