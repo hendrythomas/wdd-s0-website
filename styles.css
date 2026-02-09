@@ -81,7 +81,8 @@ body {
 .game :not(.player) {
   cursor: pointer;
 }
-.game :not(.player):hover:not(:active) {
+.game :not(.player):hover:not(:active),
+.game :not(.player):focus-visible {
   filter: drop-shadow(0 0 2px white);
 }
 
