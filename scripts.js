@@ -1,5 +1,3 @@
-createWorld();
-
 document.addEventListener("DOMContentLoaded", () => {
   setGridSize();
   displayWorld();
@@ -8,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 addEventListener("resize", (e) => {
   setGridSize();
+  displayWorld();
 });
 
 function setGridSize() {
@@ -24,16 +23,36 @@ function setGridSize() {
   if (tileSize === NaN) return;
 
   // set grid size (uneven)
-  const gridCols = 2 * Math.floor(contentElem.offsetWidth / tileSize / 2) - 1;
-  const gridRows = 2 * Math.floor(contentElem.offsetHeight / tileSize / 2) - 1;
-  game.style.setProperty("--cols", gridCols);
-  game.style.setProperty("--rows", gridRows);
+  const gameCols = 2 * Math.floor(contentElem.offsetWidth / tileSize / 2) - 1;
+  const gameRows = 2 * Math.floor(contentElem.offsetHeight / tileSize / 2) - 1;
+  game.style.setProperty("--cols", gameCols);
+  game.style.setProperty("--rows", gameRows);
 }
 
-// let world = 
-function createWorld() {}
-
 function displayWorld() {
+  const gameElem = document.querySelector("#game");
+  if (gameElem === null) return;
+  const playerElem = gameElem.querySelector(".player");
+  if (playerElem === null) return;
+  
+  // get center
+  const gameStyle = window.getComputedStyle(gameElem);
+  const gameCols = gameStyle.getPropertyValue("grid-template-columns").split(" ").length;
+  const gameRows = gameStyle.getPropertyValue("grid-template-rows").split(" ").length;
+
+  const centerCol = Math.ceil(gameCols / 2);
+  const centerRow = Math.ceil(gameRows / 2);
+  
+  // place tiles
+  for (const tileElem of gameElem.children) {
+    const tileX = Number(tileElem.getAttribute("data-x"));
+    const tileY = Number(tileElem.getAttribute("data-y"));
+    //TODO: return if not number
+    tileElem.style.gridColumn = tileX + centerCol;
+    tileElem.style.gridRow    = tileY + centerRow;
+  }
+  // playerElem.style.gridColumn = centerCol;
+  // playerElem.style.gridRow    = centerRow;
 }
 
 function createInput() {}
