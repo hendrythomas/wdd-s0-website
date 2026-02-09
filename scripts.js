@@ -41,14 +41,10 @@ function displayWorld() {
   if (playerElem === null) return;
 
   // center on player
-  let playerX = Number(window.getComputedStyle(playerElem).gridColumn);
-  let playerY = Number(window.getComputedStyle(playerElem).gridRow);
-  if (isNaN(playerX)) {
-    playerX = Number(playerElem.getAttribute("data-x"));
-  }
-  if (isNaN(playerY)) {
-    playerY = Number(playerElem.getAttribute("data-y"));
-  }
+  const playerX = Number(playerElem.getAttribute("data-x"));
+  const playerY = Number(playerElem.getAttribute("data-y"));
+  if (isNaN(playerX)) return;
+  if (isNaN(playerY)) return;
 
   const gameStyle = window.getComputedStyle(gameElem);
   const gameCols = gameStyle.getPropertyValue("grid-template-columns").split(" ").length;
@@ -58,16 +54,22 @@ function displayWorld() {
   
   // place tiles
   for (const tileElem of gameElem.children) {
-    let tileX = Number(window.getComputedStyle(tileElem).gridColumn);
-    let tileY = Number(window.getComputedStyle(tileElem).gridRow);
-    if (isNaN(tileX)) {
-      tileX = Number(tileElem.getAttribute("data-x"));
-    }
-    if (isNaN(tileY)) {
-      tileY = Number(tileElem.getAttribute("data-y"));
-    }
+    let tileX = Number(tileElem.getAttribute("data-x"));
+    let tileY = Number(tileElem.getAttribute("data-y"));
+    
     tileElem.style.gridColumn = tileX + centerCol;
     tileElem.style.gridRow    = tileY + centerRow;
+    
+    // hide off-screen tiles
+    if (tileX + centerCol < 1 ||
+        tileX > gameCols ||
+        tileY + centerRow < 1 ||
+        tileY > gameRows
+    ) {
+      tileElem.classList.add("invisible");
+    } else {
+      tileElem.classList.remove("invisible");
+    }
   }
 }
 
@@ -76,24 +78,24 @@ function handleInput(key) {
   if (gameElem === null) return;
   const playerElem = gameElem.querySelector(".player");
   if (playerElem === null) return;
-  
-  const x = Number(playerElem.style.gridColumn);
-  const y = Number(playerElem.style.gridRow);
-  if (isNaN(x)) return;
-  if (isNaN(y)) return;
 
+  const playerX = Number(playerElem.getAttribute("data-x"));
+  const playerY = Number(playerElem.getAttribute("data-y"));
+  if (isNaN(playerX)) return;
+  if (isNaN(playerY)) return;
+  
   switch (key) {
     case "d":
-      playerElem.style.gridColumn = x + 1;
+      playerElem.dataset.x = playerX + 1;
       break;
     case "a":
-      playerElem.style.gridColumn = x - 1;
+      playerElem.dataset.x = playerX - 1;
       break;
     case "s":
-      playerElem.style.gridRow = y + 1;
+      playerElem.dataset.y = playerY + 1;
       break;
     case "w":
-      playerElem.style.gridRow = y - 1;
+      playerElem.dataset.y = playerY - 1;
       break;
   }
 }
