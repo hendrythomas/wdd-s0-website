@@ -3,10 +3,12 @@ function openBubble(id) {
   bubble.showModal();
 }
 
-function closeBubble(id) {
+function closeBubble() {
   const bubble = document.querySelector("#bubble");
   bubble.close();
 }
+
+populateWorld();
 
 document.addEventListener("DOMContentLoaded", () => {
   setGridSize();
@@ -20,9 +22,10 @@ addEventListener("resize", (e) => {
 
 document.addEventListener("keydown", (e) => {
   handleInput(e.key);
-  tilesReact();
   displayWorld();
 });
+
+function populateWorld() {}
 
 function setGridSize() {
   // get content rect
@@ -108,35 +111,33 @@ function handleInput(key) {
     case "w":
       playerElem.dataset.y = playerY - 1;
       break;
+    case " ":
+      clickNearTile();
+      break;
   }
 }
 
-function tilesReact() {
-  // player tile collision
+function clickNearTile() {
   const gameElem = document.querySelector("#game");
   if (gameElem === null) return;
   const playerElem = gameElem.querySelector(".player");
   if (playerElem === null) return;
-  
+
   const playerX = Number(playerElem.getAttribute("data-x"));
   const playerY = Number(playerElem.getAttribute("data-y"));
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
+  
+  // get neighbouring tile
+  let tileElem;
+  tileElem =
+    gameElem.querySelector(`[data-x="${playerX + 1}"][data-y="${playerY}"]`) ||
+    gameElem.querySelector(`[data-x="${playerX - 1}"][data-y="${playerY}"]`) ||
+    gameElem.querySelector(`[data-x="${playerX}"][data-y="${playerY + 1}"]`) ||
+    gameElem.querySelector(`[data-x="${playerX}"][data-y="${playerY - 1}"]`);
+  if (tileElem === null) return;
 
-  for (const tileElem of gameElem.children) {
-    if (tileElem.classList.contains("player")) continue;
-    
-    const tileX = Number(tileElem.getAttribute("data-x"));
-    const tileY = Number(tileElem.getAttribute("data-y"));
-    if (isNaN(playerX)) continue;
-    if (isNaN(playerY)) continue;
-    
-    if (playerX === tileX &&
-        playerY === tileY
-    ) {
-      tileElem.click();
-    }
-  }
+  tileElem.click();
 }
 
 // document.addEventListener("DOMContentLoaded", () => {
