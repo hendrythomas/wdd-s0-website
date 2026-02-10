@@ -40,11 +40,15 @@ body {
   transition: none;
 }
 
-.main-item > :first-child {
+.main > * > :first-child {
   margin-top: 0;
 }
-.main-item:not(:target) {
+.main > :not(:target)[id] {
   display: none;
+}
+
+.profile {
+  
 }
 
 .game {

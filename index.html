@@ -12,8 +12,8 @@
   <body>
     <main class="content" id="content">
       <nav class="game" id="game">
-        <a class="player" href="#0" onclick="openBubble('324')" data-x="0" data-y="0"></a>
-        <a class="chest" href="#0" onclick="openBubble('324')" data-x="0" data-y="-1"></a>
+        <a class="player" href="#0" onclick="loadStudent('324')" data-x="0" data-y="0"></a>
+        <a class="chest" href="#0" onclick="loadStudent('324')" data-x="0" data-y="-1"></a>
         <a class="sign" href="#1" data-x="-2" data-y="-3">
           Leerdoel 1
         </a>
@@ -24,8 +24,8 @@
           Leerdoel 3
         </a>
       </nav>
-      <main class="main">
-        <section class="main-item" id="0">
+      <main class="main" id="main">
+        <section class="profile" id="0">
           <p>
             <span data-insert="emoji">Fav emoji</span>
             <span data-insert="name">Name</span>
@@ -42,7 +42,7 @@
             Gebruik WASD of tik op de vlaggen om te navigeren
           </p>
         </section>
-        <section class="main-item" id="1">
+        <section id="1">
           <h2>Leerdoel 1</h2>
           <p>
             Ik wil leren om data op nieuwe manieren in websites te implementeren. 
@@ -54,7 +54,7 @@
             Mijn doel is bereikt als ik meerde APIs werkend heb gekregen.
           </p>
         </section>
-        <section class="main-item" id="2">
+        <section id="2">
           <h2>Leerdoel 2</h2>
           <p>
             Ik wil meer unieke layouts maken.
@@ -66,7 +66,7 @@
             Mijn doel is bereikt als ik meerdere nieuwe tags/properties heb gebruikt in een website.
           </p>
         </section>
-        <section class="main-item" id="3">
+        <section id="3">
           <h2>Leerdoel 3</h2>
           <p>
             Ik wil meer websites online zetten, zodat ik beter word in web development en een groter portfolio heb.

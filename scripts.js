@@ -13,21 +13,6 @@ function shuffleArray(array) {
   }
 }
 
-function openBubble(id) {
-  // generateProfile(id);
-  // const bubble = document.querySelector("#bubble");
-  // if (bubble === null) return;
-
-  // bubble.showModal();
-}
-
-function closeBubble() {
-  const bubble = document.querySelector("#bubble");
-  if (bubble === null) return;
-
-  bubble.close();
-}
-
 let classData = [];
 const numNpcs = 4;
 
@@ -67,7 +52,7 @@ function populateWorld() {
       const placeY = randInt(i*1.5, -i*1.5);
       const npcIndex = randInt(0, numNpcs) + 1;
       
-      const html = `<button class="npc t${npcIndex}" onclick="openBubble('${student.id}')" data-x="${placeX}" data-y="${placeY}"></button>`;
+      const html = `<a class="npc t${npcIndex}" href="#0" onclick="loadStudent('${student.id}')" data-x="${placeX}" data-y="${placeY}"></a>`;
       gameElem.insertAdjacentHTML("beforeend", html);
     }
 
@@ -88,14 +73,14 @@ async function getData() {
   }
 }
 
-function generateProfile(id) {
+function loadStudent(id) {
   const data = classData.find(student => {
     return student.id === parseInt(id);
   });
   if (data === undefined) return;
 
   if (isNaN(parseInt(id))) return;
-  const bubble = document.querySelector("#bubble");
+  const bubble = document.querySelector("#main");
   if (bubble === null) return;
 
   const nameElem = bubble.querySelector('[data-insert="name"]');
