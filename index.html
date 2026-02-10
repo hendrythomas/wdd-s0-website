@@ -13,12 +13,15 @@
     <div class="content" id="content">
       <div class="game" id="game">
         <button class="player" data-x="1" data-y="1"></button>
-        <button class="chest" onclick="openBubble('test')" data-x="1" data-y="3"></button>
+        <button class="chest" onclick="openBubble('test')" data-x="-1" data-y="-1"></button>
+        <button class="chest" onclick="openBubble('test')" data-x="1" data-y="-1"></button>
+        <button class="chest" onclick="openBubble('test')" data-x="3" data-y="-1"></button>
         <button class="chest" onclick="" data-x="1" data-y="-5"></button>
       </div>
-      <dialog id="bubble" onclick="closeBubble()">
-        <p>Greetings, one and all!</p>
-        <button autofocus>OK</button>
+      <dialog id="bubble">
+        <p>Name</p>
+        <button>Close</button>
+        <button autofocus onclick="closeBubble()">OK</button>
       </dialog>
       <!-- <div class="content-section">
         <div class="game" id="game">
