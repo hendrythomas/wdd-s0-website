@@ -16,6 +16,7 @@ body {
   justify-content: center;
   align-items:     center;
   background-color: yellowgreen;
+  overflow: hidden;
 }
 
 .game {
@@ -28,15 +29,12 @@ body {
   height: auto;
   width:  auto;
 }
-@media only screen and (max-width: 600px) {
-  .game {
-    --tile-size: 50px;
-  }
-}
 
 .game > * {
   width: 100%;
   height: 100%;
+  text-align: center;
+  color: var(--text);
   cursor: pointer;
 }
 
@@ -73,7 +71,7 @@ body {
   --sheet-cols: 1;
   --sheet-rows: 1;
 }
-.game .npc1 {
+.game .npc.t1 {
   background-image: url("assets/npc1.png");
   --sheet-cols: 3;
   --sheet-rows: 4;
@@ -81,7 +79,7 @@ body {
     calc(0 * -100%)
     calc(0 * -100%);
 }
-.game .npc2 {
+.game .npc.t2 {
   background-image: url("assets/npc2.png");
   --sheet-cols: 3;
   --sheet-rows: 4;
@@ -89,7 +87,7 @@ body {
     calc(0 * -100%)
     calc(0 * -100%);
 }
-.game .npc3 {
+.game .npc.t3 {
   background-image: url("assets/npc3.png");
   --sheet-cols: 3;
   --sheet-rows: 4;
@@ -97,7 +95,7 @@ body {
     calc(0 * -100%)
     calc(0 * -100%);
 }
-.game .npc4 {
+.game .npc.t4 {
   background-image: url("assets/clown.png");
   --sheet-cols: 1;
   --sheet-rows: 1;

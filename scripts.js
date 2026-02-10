@@ -30,7 +30,6 @@ function closeBubble() {
 
 let classData = [];
 const numNpcs = 4;
-const spawnSpace = 4;
 
 populateWorld();
 
@@ -64,12 +63,12 @@ function populateWorld() {
     shuffleArray(classData);
     for (let i = 0; i < classData.length; i++) {
       const student = classData[i];
-      const placeX = randInt(i*1.5 + spawnSpace, -i*1.5 - spawnSpace);
-      const placeY = randInt(i*1.5 + spawnSpace, -i*1.5 - spawnSpace);
+      const placeX = randInt(i*1.5, -i*1.5);
+      const placeY = randInt(i*1.5, -i*1.5);
       const npcIndex = randInt(0, numNpcs) + 1;
       
-      const html = `<button class="npc${npcIndex}" onclick="openBubble('${student.id}')" data-x="${placeX}" data-y="${placeY}"></button>`;
-      gameElem.insertAdjacentHTML("afterbegin", html);
+      const html = `<button class="npc t${npcIndex}" onclick="openBubble('${student.id}')" data-x="${placeX}" data-y="${placeY}"></button>`;
+      gameElem.insertAdjacentHTML("beforeend", html);
     }
   });
 }
@@ -98,6 +97,9 @@ function generateProfile(id) {
 
   const nameElem = bubble.querySelector('[data-insert="name"]');
   const avatarElem = bubble.querySelector('[data-insert="avatar"]');
+  const githubElem = bubble.querySelector('[data-insert="github"]');
+  const birthdateElem = bubble.querySelector('[data-insert="birthdate"]');
+  const emojiElem = bubble.querySelector('[data-insert="emoji"]');
 
   if (nameElem !== null)
     nameElem.textContent = data.name;
@@ -109,13 +111,15 @@ function generateProfile(id) {
       avatarElem.src = "./assets/clown.png";
     }
   }
-  // if (githubElem !== null)
-  //   githubElem.textContent = data.github_handle;
-  // if (birthdateElem !== null)
-  //   birthdateElem.textContent = data.birthdate;
-  // if (emojiElem !== null)
-  //   emojiElem.textContent = data.fav_emoji;
-// });
+  
+  if (githubElem !== null)
+    githubElem.textContent = data.github_handle;
+  
+  if (birthdateElem !== null)
+    birthdateElem.textContent = data.birthdate;
+  
+  if (emojiElem !== null)
+    emojiElem.textContent = data.fav_emoji;
 }
 
 function setGridSize() {
@@ -133,8 +137,8 @@ function setGridSize() {
   if (isNaN(tileSize)) return;
 
   // set grid size (uneven)
-  const gameCols = 2 * Math.floor(contentElem.offsetWidth / tileSize / 2) - 1;
-  const gameRows = 2 * Math.floor(contentElem.offsetHeight / tileSize / 2) - 1;
+  const gameCols = 2 * Math.floor(contentElem.offsetWidth / tileSize / 2) + 1;
+  const gameRows = 2 * Math.floor(contentElem.offsetHeight / tileSize / 2) + 1;
   game.style.setProperty("--cols", gameCols);
   game.style.setProperty("--rows", gameRows);
 }
