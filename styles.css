@@ -100,6 +100,14 @@ body {
   --sheet-cols: 1;
   --sheet-rows: 1;
 }
+.game .enemy {
+  background-image: url("assets/enemy1.png");
+  --sheet-cols: 3;
+  --sheet-rows: 4;
+  background-position:
+    calc(0 * -100%)
+    calc(0 * -100%);
+}
 
 .bubble {
   width: 50%;
