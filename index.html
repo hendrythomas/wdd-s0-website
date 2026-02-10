@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <main class="content" id="content">
+    <div class="content" id="content">
       <nav class="game" id="game">
         <a class="player" href="#0" onclick="loadStudent('324')" data-x="0" data-y="0"></a>
         <a class="chest" href="#0" onclick="loadStudent('324')" data-x="0" data-y="-1"></a>
@@ -25,22 +25,21 @@
         </a>
       </nav>
       <main class="main" id="main">
+        <a href="#">Back</a>
         <section class="profile" id="0">
-          <p>
+          <div class="name">
             <span data-insert="emoji">Fav emoji</span>
             <span data-insert="name">Name</span>
-          </p>
-          <p>
-            Geboortedatum:
-            <span data-insert="birthdate">Birth date</span>
-          </p>
-          <p>
-            Github:
-            <span data-insert="github">Github handle</span>
-          </p>
-          <p>
-            Gebruik WASD of tik op de vlaggen om te navigeren
-          </p>
+          </div>
+          <div class="github" data-insert="github">Github handle</div>
+          <img class="picture" data-insert="avatar"></img>
+          <div class="info">
+            <p data-insert="birthdate">Birth date</p>
+            <p>Aaa</p>
+            <p>Aaa</p>
+          </div>
+          <div class="button l">Cancel</div>
+          <div class="button r">Recruit</div>
         </section>
         <section id="1">
           <h2>Leerdoel 1</h2>
@@ -78,7 +77,6 @@
             Dit doel is bereikt als ik een eigen project online heb gezet.
           </p>
         </section>
-        <a href="#">Close</a>
       </main>
     </div>
   </body>

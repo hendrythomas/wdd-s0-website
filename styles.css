@@ -40,15 +40,34 @@ body {
   transition: none;
 }
 
-.main > * > :first-child {
-  margin-top: 0;
-}
 .main > :not(:target)[id] {
   display: none;
 }
 
 .profile {
-  
+  display: grid;
+  grid-template-areas:
+    "name github"
+    "picture info"
+    "button-l button-r";
+  grid-template-columns: 1fr 1fr;
+
+  > * {
+    padding: 5px;
+  }
+  .name { grid-area: "name"; }
+  .github { grid-area: "github"; }
+  .picture {
+    grid-area: "picture";
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+  .info {
+    grid-area: "info";
+  }
+  .button.l { grid-area: "button-l"; }
+  .button.r { grid-area: "button-r"; }
+  .button {}
 }
 
 .game {
@@ -177,34 +196,5 @@ button, a {
     --4: #808080;
     --icons: #BCBCBC;
     --text: #E6E6E6;
-  }
-}
-
-.content {
-  width:  100%;
-  height: 100%;
-  display: flex;
-  gap: 2px;
-  background-color: var(--3);
-}
-@media only screen and (max-width: 600px) {
-  .content {
-    flex-direction: column;
-  }
-}
-
-.game {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows:    repeat(10, 1fr);
-  width: 80%;
-  max-width: 350px;
-  aspect-ratio: 1 / 2;
-}
-@media screen and (max-width: 600px) {
-  .game {
-    width: unset;
-    height: 90%;
-    aspect-ratio: 1 / 2;
   }
 } */
