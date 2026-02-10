@@ -12,19 +12,26 @@
   <body>
     <div class="content" id="content">
       <div class="game" id="game">
-        <button class="player" data-x="1" data-y="1"></button>
-        <button class="chest" onclick="openBubble('test')" data-x="-1" data-y="-1"></button>
-        <button class="chest" onclick="openBubble('test')" data-x="1" data-y="-1"></button>
-        <button class="chest" onclick="openBubble('test')" data-x="3" data-y="-1"></button>
-        <button class="chest" onclick="" data-x="1" data-y="-5"></button>
+        <button class="chest" onclick="openBubble('test')" data-x="0" data-y="-1"></button>
+        <button class="player" data-x="0" data-y="0"></button>
+        <button class="sign" onclick="openBubble('test')" data-x="-2" data-y="-3"></button>
+        <button class="sign" onclick="openBubble('test')" data-x="0" data-y="-3"></button>
+        <button class="sign" onclick="openBubble('test')" data-x="2" data-y="-3"></button>
+        <button class="npc" onclick="openBubble('test')" data-x="-2" data-y="2"></button>
+        <button class="npc" onclick="openBubble('test')" data-x="0" data-y="3"></button>
+        <button class="npc" onclick="openBubble('test')" data-x="2" data-y="2"></button>
       </div>
       <dialog class="bubble" id="bubble">
         <div class="grid">
-          <h2 class="name">Name</h2>
+          <h2 data-insert="name">Name</h2>
           <img src="assets/clown.png">
-          <p class="stat">Stat</p>
+          <main>
+            <p>Stat</p>
+            <p>Stat</p>
+            <p>Stat</p>
+          </main>
           <button class="cancel" autofocus onclick="closeBubble()">Cancel</bu>
-          <button class="ok" onclick="closeBubble()">OK</bu>
+          <button class="ok" onclick="closeBubble()">Recruit</button>
         </div>
       </dialog>
       <!-- <div class="content-section">
