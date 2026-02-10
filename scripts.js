@@ -29,7 +29,8 @@ function closeBubble() {
 }
 
 let classData = [];
-const numNpcs = 3;
+const numNpcs = 4;
+const spawnSpace = 4;
 
 populateWorld();
 
@@ -62,11 +63,11 @@ function populateWorld() {
     shuffleArray(classData);
     for (let i = 0; i < classData.length; i++) {
       const student = classData[i];
-      const placeX = randInt(i*2, -i*2);
-      const placeY = randInt(i*2, -i*2);
-      const npcIndex = randInt(0, numNpcs);
+      const placeX = randInt(i*1.5 + spawnSpace, -i*1.5 - spawnSpace);
+      const placeY = randInt(i*1.5 + spawnSpace, -i*1.5 - spawnSpace);
+      const npcIndex = randInt(0, numNpcs) + 1;
       
-      const html = `<button class="npc ${npcIndex}" onclick="openBubble('${student.id}')" data-x="${placeX}" data-y="${placeY}"></button>`;
+      const html = `<button class="npc${npcIndex}" onclick="openBubble('${student.id}')" data-x="${placeX}" data-y="${placeY}"></button>`;
       gameElem.insertAdjacentHTML("afterbegin", html);
     }
   });

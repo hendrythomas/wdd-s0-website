@@ -64,13 +64,40 @@ body {
   background-image: url("assets/chest.png");
   --sheet-cols: 1;
   --sheet-rows: 4;
+  background-position:
+    calc(0 * -100%)
+    calc(3 * -100%);
 }
 .game .sign {
   background-image: url("assets/sign.png");
   --sheet-cols: 1;
   --sheet-rows: 1;
 }
-.game .npc {
+.game .npc1 {
+  background-image: url("assets/npc1.png");
+  --sheet-cols: 3;
+  --sheet-rows: 4;
+  background-position:
+    calc(0 * -100%)
+    calc(0 * -100%);
+}
+.game .npc2 {
+  background-image: url("assets/npc2.png");
+  --sheet-cols: 3;
+  --sheet-rows: 4;
+  background-position:
+    calc(0 * -100%)
+    calc(0 * -100%);
+}
+.game .npc3 {
+  background-image: url("assets/npc3.png");
+  --sheet-cols: 3;
+  --sheet-rows: 4;
+  background-position:
+    calc(0 * -100%)
+    calc(0 * -100%);
+}
+.game .npc4 {
   background-image: url("assets/clown.png");
   --sheet-cols: 1;
   --sheet-rows: 1;
@@ -113,6 +140,9 @@ body {
   }
   main {
     grid-area: stat;
+  }
+  main > :first-child {
+    margin: 0;
   }
   button {
     margin: 4px;
