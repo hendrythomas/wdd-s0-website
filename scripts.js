@@ -45,7 +45,8 @@ addEventListener("resize", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  handleInput(e.key.toLowerCase());
+  const key = e.key.toLowerCase()
+  handleInput(key);
   displayWorld();
 });
 
@@ -145,8 +146,8 @@ function displayWorld() {
   if (playerElem === null) return;
 
   // center on player
-  const playerX = Number(playerElem.getAttribute("data-x"));
-  const playerY = Number(playerElem.getAttribute("data-y"));
+  const playerX = parseInt(playerElem.getAttribute("data-x"));
+  const playerY = parseInt(playerElem.getAttribute("data-y"));
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
 
@@ -156,13 +157,24 @@ function displayWorld() {
   const centerCol = Math.ceil(gameCols / 2) - playerX;
   const centerRow = Math.ceil(gameRows / 2) - playerY;
   
-  // place tiles
   for (const tileElem of gameElem.children) {
+    // set tile sprite
+    let tileSpriteX = parseInt(tileElem.getAttribute("data-sprite-x"));
+    let tileSpriteY = parseInt(tileElem.getAttribute("data-sprite-y"));
+
+    if (!isNaN(tileSpriteX))
+      playerElem.style.backgroundPositionX = `calc(${tileSpriteX} * -100%)`;
+    if (!isNaN(tileSpriteY))
+      playerElem.style.backgroundPositionY = `calc(${tileSpriteY} * -100%)`;
+
+    // place tiles
     let tileX = Number(tileElem.getAttribute("data-x"));
     let tileY = Number(tileElem.getAttribute("data-y"));
     
-    tileElem.style.gridColumn = tileX + centerCol;
-    tileElem.style.gridRow    = tileY + centerRow;
+    if (!isNaN(parseInt(tileX)))
+      tileElem.style.gridColumn = tileX + centerCol;
+    if (!isNaN(parseInt(tileY)))
+      tileElem.style.gridRow = tileY + centerRow;
     
     // hide off-screen tiles
     if (tileElem.style.gridColumn < 1 ||
@@ -191,15 +203,19 @@ function handleInput(key) {
   switch (key) {
     case "d":
       playerElem.dataset.x = playerX + 1;
+      playerElem.dataset.spriteY = 2;
       break;
     case "a":
       playerElem.dataset.x = playerX - 1;
+      playerElem.dataset.spriteY = 1;
       break;
     case "s":
       playerElem.dataset.y = playerY + 1;
+      playerElem.dataset.spriteY = 0;
       break;
     case "w":
       playerElem.dataset.y = playerY - 1;
+      playerElem.dataset.spriteY = 3;
       break;
     case " ":
       clickNearTile();
