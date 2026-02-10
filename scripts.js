@@ -70,6 +70,9 @@ function populateWorld() {
       const html = `<button class="npc t${npcIndex}" onclick="openBubble('${student.id}')" data-x="${placeX}" data-y="${placeY}"></button>`;
       gameElem.insertAdjacentHTML("beforeend", html);
     }
+
+    //TODO: better async syntax
+    displayWorld();
   });
 }
 
@@ -223,6 +226,14 @@ function handleInput(key) {
       break;
     case " ":
       clickNearTile();
+      break;
+    case "n":
+      // debug night mode
+      const npcs = game.querySelectorAll(".npc");
+      for (const npc of npcs) {
+        npc.classList.remove("npc");
+        npc.classList.add("enemy");
+      }
       break;
   }
 }
