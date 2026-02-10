@@ -21,7 +21,7 @@ addEventListener("resize", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  handleInput(e.key);
+  handleInput(e.key.toLowerCase());
   displayWorld();
 });
 
@@ -75,10 +75,10 @@ function displayWorld() {
     tileElem.style.gridRow    = tileY + centerRow;
     
     // hide off-screen tiles
-    if (tileX + centerCol < 1 ||
-        tileX > gameCols ||
-        tileY + centerRow < 1 ||
-        tileY > gameRows
+    if (tileElem.style.gridColumn + centerCol < 1 ||
+        tileElem.style.gridColumn > gameCols ||
+        tileElem.style.gridRow    + centerRow < 1 ||
+        tileElem.style.gridRow    > gameRows
     ) {
       tileElem.classList.add("invisible");
     } else {
