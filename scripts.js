@@ -14,11 +14,11 @@ function shuffleArray(array) {
 }
 
 function openBubble(id) {
-  generateProfile(id);
-  const bubble = document.querySelector("#bubble");
-  if (bubble === null) return;
+  // generateProfile(id);
+  // const bubble = document.querySelector("#bubble");
+  // if (bubble === null) return;
 
-  bubble.showModal();
+  // bubble.showModal();
 }
 
 function closeBubble() {
