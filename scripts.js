@@ -1,12 +1,27 @@
+// function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function randInt(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The minimum is inclusive and the maximum is exclusive 
+}
+
 function openBubble(id) {
+  generateProfile(id);
   const bubble = document.querySelector("#bubble");
+  if (bubble === null) return;
+
   bubble.showModal();
 }
 
 function closeBubble() {
   const bubble = document.querySelector("#bubble");
+  if (bubble === null) return;
+
   bubble.close();
 }
+
+let classData = [];
+const numNpcs = 3;
 
 populateWorld();
 
@@ -25,7 +40,72 @@ document.addEventListener("keydown", (e) => {
   displayWorld();
 });
 
-function populateWorld() {}
+function populateWorld() {
+  // save class data
+  getData().then((result) => {
+    if (result === null) return;
+    classData = result.data;
+    console.log(classData);
+
+    // place students
+    const gameElem = document.querySelector("#game");
+    if (gameElem === null) return;
+    
+    for (let i = 0; i < classData.length; i++) {
+      const student = classData[i];
+      const placeX = randInt(i*2, -i*2);
+      const placeY = randInt(i*2, -i*2);
+      const npcIndex = randInt(0, numNpcs);
+      
+      const html = `<button class="npc ${npcIndex}" onclick="openBubble('${student.id}')" data-x="${placeX}" data-y="${placeY}"></button>`;
+      gameElem.insertAdjacentHTML("afterbegin", html);
+    }
+  });
+}
+
+async function getData() {
+  const url = "https://fdnd.directus.app/items/person?filter[squads][squad_id][tribe][name]=CMD%20Minor%20Web%20Dev&filter[squads][squad_id][cohort]=2526";
+  try {
+    const response = await fetch(url);
+    const result = await response.json();
+    return(result);
+  }
+  catch (error) {
+    console.error(error.message);
+  }
+}
+
+function generateProfile(id) {
+  if (isNaN(parseInt(id))) return;
+  const bubble = document.querySelector("#bubble");
+  if (bubble === null) return;
+
+  const nameElem = bubble.querySelector('[data-insert="name"]');
+  const avatarElem = bubble.querySelector('[data-insert="avatar"]');
+  
+  // getData(id).then((result) => {
+  //   if (result === null) return;
+  //   if (result.data === null) return;
+  //   const data = result.data[0];
+
+  //   if (nameElem !== null)
+  //     nameElem.textContent = data.name;
+
+  //   if (avatarElem !== null) {
+  //     if (data.avatar) {
+  //       avatarElem.src = data.avatar;
+  //     } else {
+  //       avatarElem.src = "./assets/clown.png";
+  //     }
+  //   }
+    // if (githubElem !== null)
+    //   githubElem.textContent = data.github_handle;
+    // if (birthdateElem !== null)
+    //   birthdateElem.textContent = data.birthdate;
+    // if (emojiElem !== null)
+    //   emojiElem.textContent = data.fav_emoji;
+  // });
+}
 
 function setGridSize() {
   // get content rect
@@ -75,9 +155,9 @@ function displayWorld() {
     tileElem.style.gridRow    = tileY + centerRow;
     
     // hide off-screen tiles
-    if (tileElem.style.gridColumn + centerCol < 1 ||
+    if (tileElem.style.gridColumn < 1 ||
         tileElem.style.gridColumn > gameCols ||
-        tileElem.style.gridRow    + centerRow < 1 ||
+        tileElem.style.gridRow    < 1 ||
         tileElem.style.gridRow    > gameRows
     ) {
       tileElem.classList.add("invisible");
