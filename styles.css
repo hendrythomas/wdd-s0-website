@@ -16,7 +16,6 @@ body {
   justify-content: center;
   align-items:     center;
   background-color: yellowgreen;
-  /* overflow: hidden; */
 }
 
 .game {
@@ -28,9 +27,18 @@ body {
   grid-template-rows:    repeat(var(--rows), var(--tile-size));
   height: auto;
   width:  auto;
-  background-color: yellowgreen;
-  /* box-shadow: 0 0 0 2px red inset; */
+  /* position: relative;
+  border-radius: 100%;
+  overflow: hidden; */
 }
+/* .game::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 100px 100px yellowgreen inset;
+  border-radius: 100%;
+} */
 
 .game > * {
   width: 100%;
@@ -54,7 +62,9 @@ body {
   background-image: url("assets/hero.png");
   --sheet-cols: 3;
   --sheet-rows: 4;
-  background-position: 0 -300%;
+  background-position:
+    calc(0 * -100%)
+    calc(3 * -100%);
 }
 .game .chest {
   background-image: url("assets/clown.png");
@@ -62,19 +72,58 @@ body {
   --sheet-rows: 1;
 }
 
-#bubble {
+.bubble {
   width: 50%;
-  height: 20%;
+  height: min-content;
   border: 0;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 0 2px 4px 0 #00000040;
+  background-color: burlywood;
   transition: opacity 0.2s linear;
   @starting-style {
     opacity: 0;
   }
 }
-#bubble::backdrop {
+.bubble::backdrop {
   background-color: transparent;
+}
+
+.bubble .grid {
+  display: grid;
+  grid-template-areas:
+    "name name"
+    "pic stat"
+    "cancel ok";
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.bubble .grid > * {
+  padding: 15px;
+  background-color: beige;
+}
+.bubble .grid h2 {
+  grid-area: name;
+  margin: 0;
+}
+.bubble .grid img {
+  grid-area: pic;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+.bubble .grid p {
+  grid-area: stat;
+  margin: 0;
+}
+.bubble .grid button {
+  background-color: royalblue;
+  color: white;
+
+  .cancel {
+    grid-area: cancel;
+  }
+  .ok {
+    grid-area: ok;
+  }
 }
 
 

@@ -18,10 +18,14 @@
         <button class="chest" onclick="openBubble('test')" data-x="3" data-y="-1"></button>
         <button class="chest" onclick="" data-x="1" data-y="-5"></button>
       </div>
-      <dialog id="bubble">
-        <p>Name</p>
-        <button>Close</button>
-        <button autofocus onclick="closeBubble()">OK</button>
+      <dialog class="bubble" id="bubble">
+        <div class="grid">
+          <h2 class="name">Name</h2>
+          <img src="assets/clown.png">
+          <p class="stat">Stat</p>
+          <button class="cancel" autofocus onclick="closeBubble()">Cancel</bu>
+          <button class="ok" onclick="closeBubble()">OK</bu>
+        </div>
       </dialog>
       <!-- <div class="content-section">
         <div class="game" id="game">
