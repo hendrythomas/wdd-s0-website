@@ -5,6 +5,14 @@ function randInt(min, max) {
   return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The minimum is inclusive and the maximum is exclusive 
 }
 
+// function from https://stackoverflow.com/a/12646864
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 function openBubble(id) {
   generateProfile(id);
   const bubble = document.querySelector("#bubble");
@@ -51,6 +59,7 @@ function populateWorld() {
     const gameElem = document.querySelector("#game");
     if (gameElem === null) return;
     
+    shuffleArray(classData);
     for (let i = 0; i < classData.length; i++) {
       const student = classData[i];
       const placeX = randInt(i*2, -i*2);
@@ -76,35 +85,35 @@ async function getData() {
 }
 
 function generateProfile(id) {
+  const data = classData.find(student => {
+    return student.id === parseInt(id);
+  });
+  if (data === undefined) return;
+
   if (isNaN(parseInt(id))) return;
   const bubble = document.querySelector("#bubble");
   if (bubble === null) return;
 
   const nameElem = bubble.querySelector('[data-insert="name"]');
   const avatarElem = bubble.querySelector('[data-insert="avatar"]');
-  
-  // getData(id).then((result) => {
-  //   if (result === null) return;
-  //   if (result.data === null) return;
-  //   const data = result.data[0];
 
-  //   if (nameElem !== null)
-  //     nameElem.textContent = data.name;
+  if (nameElem !== null)
+    nameElem.textContent = data.name;
 
-  //   if (avatarElem !== null) {
-  //     if (data.avatar) {
-  //       avatarElem.src = data.avatar;
-  //     } else {
-  //       avatarElem.src = "./assets/clown.png";
-  //     }
-  //   }
-    // if (githubElem !== null)
-    //   githubElem.textContent = data.github_handle;
-    // if (birthdateElem !== null)
-    //   birthdateElem.textContent = data.birthdate;
-    // if (emojiElem !== null)
-    //   emojiElem.textContent = data.fav_emoji;
-  // });
+  if (avatarElem !== null) {
+    if (data.avatar) {
+      avatarElem.src = data.avatar;
+    } else {
+      avatarElem.src = "./assets/clown.png";
+    }
+  }
+  // if (githubElem !== null)
+  //   githubElem.textContent = data.github_handle;
+  // if (birthdateElem !== null)
+  //   birthdateElem.textContent = data.birthdate;
+  // if (emojiElem !== null)
+  //   emojiElem.textContent = data.fav_emoji;
+// });
 }
 
 function setGridSize() {
