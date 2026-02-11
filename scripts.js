@@ -17,6 +17,7 @@ let classData = [];
 const numNpcs = 4;
 let theme = 0;
 let playerDir = { x: 0, y: 1 };
+const spawnDistance = 4;
 
 populateWorld();
 
@@ -51,15 +52,23 @@ function populateWorld() {
     shuffleArray(classData);
     for (let i = 0; i < classData.length; i++) {
       const student = classData[i];
-      const placeX = randInt(i*1.5, -i*1.5);
-      const placeY = randInt(i*1.5, -i*1.5);
-      const npcIndex = randInt(0, numNpcs) + 1;
+      const placeX = randInt(i, -i);
+      const placeY = randInt(i, -i);
+
+      // delete in spawn area
+      // TODO: no
+      if (placeX > -spawnDistance && placeX < spawnDistance &&
+          placeY > -spawnDistance && placeY < spawnDistance
+      ) {
+        continue;
+      }
       
+      const npcIndex = randInt(0, numNpcs) + 1;
       const html = `<a class="npc t${npcIndex}" href="#profile" onclick="loadStudent('${student.id}')" data-x="${placeX}" data-y="${placeY}"></a>`;
       gameElem.insertAdjacentHTML('beforeend', html);
     }
 
-    //TODO: better async syntax
+    // TODO: better async syntax
     displayWorld();
   });
 }
