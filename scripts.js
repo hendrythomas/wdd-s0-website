@@ -251,9 +251,9 @@ function addToggleTheme() {
 
 function onToggleTheme() {
   if (theme === 0) {
-    const contentElem = document.querySelector('#content');
-    if (contentElem === null) return;
-    contentElem.classList.add("night");
+    const bodyElem = document.querySelector('body');
+    if (bodyElem === null) return;
+    bodyElem.classList.add("night");
 
     const npcs = document.querySelectorAll('.npc');
     for (const npc of npcs) {
@@ -263,9 +263,9 @@ function onToggleTheme() {
     theme = 1;
   }
   else {
-    const contentElem = document.querySelector('#content');
-    if (contentElem === null) return;
-    contentElem.classList.remove("night");
+    const bodyElem = document.querySelector('body');
+    if (bodyElem === null) return;
+    bodyElem.classList.remove("night");
 
     const enemies = document.querySelectorAll('.enemy');
     for (const enemy of enemies) {

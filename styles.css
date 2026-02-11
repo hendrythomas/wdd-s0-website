@@ -8,6 +8,14 @@ body {
   --icons: #BCBCBC;
   --text: #E6E6E6;
 }
+body.night {
+  --1: #202020;
+  --2: #404040;
+  --3: #606060;
+  --4: #808080;
+  --icons: #BCBCBC;
+  --text: #E6E6E6;
+}
 
 .content {
   display: flex;
@@ -18,12 +26,13 @@ body {
   background-color: yellowgreen;
   overflow: hidden;
 }
-.content.night::after {
+body.night .content::after {
   content: "";
   position: fixed;
   width:  100%;
   height: 100%;
   backdrop-filter: brightness(50%) sepia(50%);
+  pointer-events: none;
 }
 
 .toggle {
@@ -199,8 +208,32 @@ body {
   --sheet-cols: 1;
   --sheet-rows: 1;
 }
-.game .enemy {
+.game .enemy.t1 {
   background-image: url('assets/enemy1.png');
+  --sheet-cols: 3;
+  --sheet-rows: 4;
+  background-position:
+    calc(0 * -100%)
+    calc(0 * -100%);
+}
+.game .enemy.t2 {
+  background-image: url('assets/enemy2.png');
+  --sheet-cols: 3;
+  --sheet-rows: 4;
+  background-position:
+    calc(0 * -100%)
+    calc(0 * -100%);
+}
+.game .enemy.t3 {
+  background-image: url('assets/enemy3.png');
+  --sheet-cols: 3;
+  --sheet-rows: 4;
+  background-position:
+    calc(0 * -100%)
+    calc(0 * -100%);
+}
+.game .enemy.t4 {
+  background-image: url('assets/enemy4.png');
   --sheet-cols: 3;
   --sheet-rows: 4;
   background-position:
@@ -223,24 +256,3 @@ button, a {
   all: unset;
   box-sizing: border-box;
 }
-
-/* body {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 15px;
-  --1: #FFFFFF;
-  --2: #E6E6E6;
-  --3: #CCCCCC;
-  --4: #B6B6B6;
-  --icons: #808080;
-  --text: #202020;
-}
-@media (prefers-color-scheme: dark) {
-  body {
-    --1: #202020;
-    --2: #404040;
-    --3: #606060;
-    --4: #808080;
-    --icons: #BCBCBC;
-    --text: #E6E6E6;
-  }
-} */
