@@ -274,11 +274,10 @@ function useNearTile() {
   tileElem = gameElem.querySelector(`[data-x="${playerX + playerDir.x}"][data-y="${playerY + playerDir.y}"]`);
   if (tileElem === null) return;
 
-  if (tileElem.classList.contains("npc")) {
-    tileElem.click();
-  }
-  else if (tileElem.classList.contains("enemy")) {
+  if (tileElem.classList.contains("enemy")) {
     tileElem.remove();
+  } else {
+    tileElem.click();
   }
 }
 
