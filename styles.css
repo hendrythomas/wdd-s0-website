@@ -10,13 +10,45 @@ body {
 }
 
 .content {
+  display: flex;
   width:  100%;
   height: 100%;
-  display: flex;
   justify-content: center;
   align-items:     center;
   background-color: yellowgreen;
   overflow: hidden;
+}
+
+.toggle {
+  all: unset;
+  position: fixed;
+  top:   0;
+  right: 0;
+  display: flex;
+  width:  32px;
+  height: 32px;
+  justify-content: center;
+  align-items:     center;
+  margin: 15px;
+  color: white;
+  text-shadow: 0 1px 2px black;
+}
+.toggle:hover:not(:active) {
+  text-shadow: 0 1px 4px black;
+}
+
+.toggle > input {
+  all: unset;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.toggle.theme > .material-symbols-sharp::before {
+  content: "light_mode";
+}
+.toggle.theme:has(:checked) > .material-symbols-sharp::before {
+  content: "dark_mode";
 }
 
 .main {
