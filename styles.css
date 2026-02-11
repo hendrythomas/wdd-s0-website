@@ -302,3 +302,9 @@ button, a {
   all: unset;
   box-sizing: border-box;
 }
+
+::selection {
+  text-shadow: none;
+  background-color: Highlight;
+  color: HighlightText;
+}

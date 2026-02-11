@@ -254,12 +254,12 @@ function handleInput(key) {
       playerDir.y = -1;
       break;
     case ' ':
-      clickNearTile();
+      useNearTile();
       break;
   }
 }
 
-function clickNearTile() {
+function useNearTile() {
   const gameElem = document.querySelector('#game');
   if (gameElem === null) return;
   const playerElem = gameElem.querySelector('.player');
@@ -274,7 +274,12 @@ function clickNearTile() {
   tileElem = gameElem.querySelector(`[data-x="${playerX + playerDir.x}"][data-y="${playerY + playerDir.y}"]`);
   if (tileElem === null) return;
 
-  tileElem.click();
+  if (tileElem.classList.contains("npc")) {
+    tileElem.click();
+  }
+  else if (tileElem.classList.contains("enemy")) {
+    tileElem.remove();
+  }
 }
 
 function addToggleTheme() {
