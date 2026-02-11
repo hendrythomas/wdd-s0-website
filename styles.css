@@ -75,14 +75,21 @@ body.night .content::after {
   max-width: 80%;
   padding: 15px;
   outline: none;
-  border-radius: 15px;
-  background-color: #FFFFFFBF;
+  border-radius: 10px;
+  background-color: #a0522de6;
   backdrop-filter: blur(4px);
-  box-shadow: 0 0 8px 4px #00000020;
+  box-shadow:
+    0 0 0 2px #00000080 inset,
+    0 0 0 4px sienna inset,
+    0 0 0 6px #00000080 inset,
+    0 0 8px 4px #00000020;
+  color: white;
+  text-shadow: 0 0 4px black;
   transition:
     margin 0.2s ease-out,
     opacity 0.2s ease-out;
   z-index: 1;
+  overflow: auto;
 }
 .main:not(:has(:target)) {
   margin-bottom: 15px;
@@ -105,20 +112,53 @@ body.night .content::after {
 
   > * {
     padding: 5px;
+    /* box-shadow: 0 0 0 2px red; */
   }
-  .name { grid-area: 'name'; }
-  .github { grid-area: 'github'; }
+
+  .name { grid-area: name; }
+
+  .github {
+    grid-area: github;
+    text-align: end;
+  }
+
   .picture {
-    grid-area: 'picture';
+    grid-area: picture;
     width: 100%;
     aspect-ratio: 1 / 1;
+    padding: 15px;
   }
-  .info {
-    grid-area: 'info';
+
+  .info { grid-area: info; }
+
+  .info > :first-child {
+    margin-top: 15px;
   }
-  .button.l { grid-area: 'button-l'; }
-  .button.r { grid-area: 'button-r'; }
-  .button {}
+
+  .button.l {
+    grid-area: button-l;
+    margin-right: 15px;
+  }
+  .button.r {
+    grid-area: button-r;
+    margin-left: 15px;
+  }
+  .button {
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    background-image: linear-gradient(to bottom, cornflowerblue, royalblue);
+    box-shadow: 0 0 0 2px #00000080 inset;
+    cursor: pointer;
+  }
+  .button:hover,
+  .button:focus-visible {
+    background-image: none;
+    background-color: cornflowerblue;
+  }
+  .button:active {
+    background-color: royalblue;
+  }
 }
 
 .game {

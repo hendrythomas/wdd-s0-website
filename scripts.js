@@ -91,9 +91,16 @@ function loadStudent(id) {
   const githubElem = bubble.querySelector('[data-insert="github"]');
   const birthdateElem = bubble.querySelector('[data-insert="birthdate"]');
   const emojiElem = bubble.querySelector('[data-insert="emoji"]');
+  const fruitElem = bubble.querySelector('[data-insert="fruit"]');
+  const soupElem = bubble.querySelector('[data-insert="soup"]');
 
-  if (nameElem !== null)
-    nameElem.textContent = data.name;
+  if (nameElem !== null) {
+    if (data.name) {
+      nameElem.textContent = data.name;
+    } else {
+      nameElem.textContent = "???";
+    }
+  }
 
   if (avatarElem !== null) {
     if (data.avatar) {
@@ -103,14 +110,40 @@ function loadStudent(id) {
     }
   }
   
-  if (githubElem !== null)
-    githubElem.textContent = data.github_handle;
+  if (githubElem !== null) {
+    if (data.github_handle) {
+      githubElem.textContent = data.github_handle;
+    } else {
+      githubElem.textContent = "No class";
+    }
+  }
   
-  if (birthdateElem !== null)
-    birthdateElem.textContent = data.birthdate;
-  
+  if (birthdateElem !== null) {
+    if (data.birthdate) {
+      birthdateElem.textContent = data.birthdate;
+    } else {
+      birthdateElem.textContent = "???";
+    }
+  }
+
   if (emojiElem !== null)
     emojiElem.textContent = data.fav_emoji;
+  
+  if (soupElem !== null) {
+    if (data.fav_soup) {
+      soupElem.textContent = data.fav_soup;
+    } else {
+      soupElem.textContent = "none";
+    }
+  }
+
+  if (fruitElem !== null) {
+    if (data.fav_fruit) {
+      fruitElem.textContent = data.fav_fruit;
+    } else {
+      soupElem.textContent = "none";
+    }
+  }
 }
 
 function setGridSize() {
