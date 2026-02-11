@@ -129,8 +129,8 @@ function setGridSize() {
   // set grid size (uneven)
   const gameCols = 2 * Math.floor(contentElem.offsetWidth / tileSize / 2) + 1;
   const gameRows = 2 * Math.floor(contentElem.offsetHeight / tileSize / 2) + 1;
-  game.style.setProperty('--cols', gameCols);
-  game.style.setProperty('--rows', gameRows);
+  gameElem.style.setProperty('--cols', gameCols);
+  gameElem.style.setProperty('--rows', gameRows);
 }
 
 function displayWorld() {
