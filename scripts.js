@@ -52,7 +52,7 @@ function populateWorld() {
       const placeY = randInt(i*1.5, -i*1.5);
       const npcIndex = randInt(0, numNpcs) + 1;
       
-      const html = `<a class="npc t${npcIndex}" href="#0" onclick="loadStudent('${student.id}')" data-x="${placeX}" data-y="${placeY}"></a>`;
+      const html = `<a class="npc t${npcIndex}" href="#profile" onclick="loadStudent('${student.id}')" data-x="${placeX}" data-y="${placeY}"></a>`;
       gameElem.insertAdjacentHTML('beforeend', html);
     }
 
