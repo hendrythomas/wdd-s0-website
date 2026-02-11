@@ -141,7 +141,7 @@ function loadStudent(id) {
     if (data.fav_fruit) {
       fruitElem.textContent = data.fav_fruit;
     } else {
-      soupElem.textContent = "none";
+      fruitElem.textContent = "none";
     }
   }
 }
