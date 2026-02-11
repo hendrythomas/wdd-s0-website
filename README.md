@@ -26,6 +26,8 @@ Ik de website responsive gemaakt met onder andere `<meta>` en `@media`. Ook heb 
 Deze week heb ik aan de hand van lessen en onderzoek geleerd over HTML en CSS.
 Mijn ontwerp gebruikt een standaard layout en kan niet makkelijk worden uitgebreid. Volgende week wil ik een nieuw ontwerp maken en nieuwe dingen maken met html, CSS en JavaScript.
 
+![Week 1 website screenshot](./docs/week1.png)
+
 ### 9/2/26
 Ik heb aan de hand van schetsen een nieuwe layout ontworpen.
 <br>
@@ -70,6 +72,8 @@ Ik heb mijn code verbeterd, door onder andere CSS nesting te gebruiken.
 
 ## Week 2
 Deze week heb ik een nieuwe layout ontworpen en geïmplementeerd. Ik heb nieuwe dingen geleerd, zoals `input`, `id` en `dialog`. Ik heb deze week beter gepland, onder andere door te werken in increments en te kiezen voor bestaande assets.
+
+![Week 2 website screenshot](./docs/week2b.png)
 
 
 ## Leerdoelen
