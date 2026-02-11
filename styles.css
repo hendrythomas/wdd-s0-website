@@ -47,26 +47,26 @@ body {
 .profile {
   display: grid;
   grid-template-areas:
-    "name github"
-    "picture info"
-    "button-l button-r";
+    'name github'
+    'picture info'
+    'button-l button-r';
   grid-template-columns: 1fr 1fr;
 
   > * {
     padding: 5px;
   }
-  .name { grid-area: "name"; }
-  .github { grid-area: "github"; }
+  .name { grid-area: 'name'; }
+  .github { grid-area: 'github'; }
   .picture {
-    grid-area: "picture";
+    grid-area: 'picture';
     width: 100%;
     aspect-ratio: 1 / 1;
   }
   .info {
-    grid-area: "info";
+    grid-area: 'info';
   }
-  .button.l { grid-area: "button-l"; }
-  .button.r { grid-area: "button-r"; }
+  .button.l { grid-area: 'button-l'; }
+  .button.r { grid-area: 'button-r'; }
   .button {}
 }
 
@@ -104,7 +104,7 @@ body {
 }
 
 .game .player {
-  background-image: url("assets/hero.png");
+  background-image: url('assets/hero.png');
   --sheet-cols: 3;
   --sheet-rows: 4;
   background-position:
@@ -112,7 +112,7 @@ body {
     calc(3 * -100%);
 }
 .game .chest {
-  background-image: url("assets/chest.png");
+  background-image: url('assets/chest.png');
   --sheet-cols: 1;
   --sheet-rows: 4;
   background-position:
@@ -120,12 +120,12 @@ body {
     calc(3 * -100%);
 }
 .game .sign {
-  background-image: url("assets/sign.png");
+  background-image: url('assets/sign.png');
   --sheet-cols: 1;
   --sheet-rows: 1;
 }
 .game .npc.t1 {
-  background-image: url("assets/npc1.png");
+  background-image: url('assets/npc1.png');
   --sheet-cols: 3;
   --sheet-rows: 4;
   background-position:
@@ -133,7 +133,7 @@ body {
     calc(0 * -100%);
 }
 .game .npc.t2 {
-  background-image: url("assets/npc2.png");
+  background-image: url('assets/npc2.png');
   --sheet-cols: 3;
   --sheet-rows: 4;
   background-position:
@@ -141,7 +141,7 @@ body {
     calc(0 * -100%);
 }
 .game .npc.t3 {
-  background-image: url("assets/npc3.png");
+  background-image: url('assets/npc3.png');
   --sheet-cols: 3;
   --sheet-rows: 4;
   background-position:
@@ -149,12 +149,12 @@ body {
     calc(0 * -100%);
 }
 .game .npc.t4 {
-  background-image: url("assets/clown.png");
+  background-image: url('assets/clown.png');
   --sheet-cols: 1;
   --sheet-rows: 1;
 }
 .game .enemy {
-  background-image: url("assets/enemy1.png");
+  background-image: url('assets/enemy1.png');
   --sheet-cols: 3;
   --sheet-rows: 4;
   background-position:

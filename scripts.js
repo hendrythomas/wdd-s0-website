@@ -18,17 +18,17 @@ const numNpcs = 4;
 
 populateWorld();
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   setGridSize();
   displayWorld();
 });
 
-addEventListener("resize", (e) => {
+addEventListener('resize', (e) => {
   setGridSize();
   displayWorld();
 });
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener('keydown', (e) => {
   const key = e.key.toLowerCase()
   handleInput(key);
   displayWorld();
@@ -42,7 +42,7 @@ function populateWorld() {
     console.log(classData);
 
     // place students
-    const gameElem = document.querySelector("#game");
+    const gameElem = document.querySelector('#game');
     if (gameElem === null) return;
     
     shuffleArray(classData);
@@ -53,7 +53,7 @@ function populateWorld() {
       const npcIndex = randInt(0, numNpcs) + 1;
       
       const html = `<a class="npc t${npcIndex}" href="#0" onclick="loadStudent('${student.id}')" data-x="${placeX}" data-y="${placeY}"></a>`;
-      gameElem.insertAdjacentHTML("beforeend", html);
+      gameElem.insertAdjacentHTML('beforeend', html);
     }
 
     //TODO: better async syntax
@@ -62,7 +62,7 @@ function populateWorld() {
 }
 
 async function getData() {
-  const url = "https://fdnd.directus.app/items/person?filter[squads][squad_id][tribe][name]=CMD%20Minor%20Web%20Dev&filter[squads][squad_id][cohort]=2526";
+  const url = 'https://fdnd.directus.app/items/person?filter[squads][squad_id][tribe][name]=CMD%20Minor%20Web%20Dev&filter[squads][squad_id][cohort]=2526';
   try {
     const response = await fetch(url);
     const result = await response.json();
@@ -80,7 +80,7 @@ function loadStudent(id) {
   if (data === undefined) return;
 
   if (isNaN(parseInt(id))) return;
-  const bubble = document.querySelector("#main");
+  const bubble = document.querySelector('#main');
   if (bubble === null) return;
 
   const nameElem = bubble.querySelector('[data-insert="name"]');
@@ -96,7 +96,7 @@ function loadStudent(id) {
     if (data.avatar) {
       avatarElem.src = data.avatar;
     } else {
-      avatarElem.src = "./assets/clown.png";
+      avatarElem.src = './assets/clown.png';
     }
   }
   
@@ -112,47 +112,47 @@ function loadStudent(id) {
 
 function setGridSize() {
   // get content rect
-  const contentElem = document.querySelector("#content");
+  const contentElem = document.querySelector('#content');
   if (contentElem === null) return;
 
   // get tile size
-  const gameElem = document.querySelector("#game");
+  const gameElem = document.querySelector('#game');
   if (gameElem === null) return;
 
   const gameStyle = window.getComputedStyle(gameElem);
-  const tileSizePx = gameStyle.getPropertyValue("--tile-size");
+  const tileSizePx = gameStyle.getPropertyValue('--tile-size');
   const tileSize = parseInt(tileSizePx);
   if (isNaN(tileSize)) return;
 
   // set grid size (uneven)
   const gameCols = 2 * Math.floor(contentElem.offsetWidth / tileSize / 2) + 1;
   const gameRows = 2 * Math.floor(contentElem.offsetHeight / tileSize / 2) + 1;
-  game.style.setProperty("--cols", gameCols);
-  game.style.setProperty("--rows", gameRows);
+  game.style.setProperty('--cols', gameCols);
+  game.style.setProperty('--rows', gameRows);
 }
 
 function displayWorld() {
-  const gameElem = document.querySelector("#game");
+  const gameElem = document.querySelector('#game');
   if (gameElem === null) return;
-  const playerElem = gameElem.querySelector(".player");
+  const playerElem = gameElem.querySelector('.player');
   if (playerElem === null) return;
 
   // center on player
-  const playerX = parseInt(playerElem.getAttribute("data-x"));
-  const playerY = parseInt(playerElem.getAttribute("data-y"));
+  const playerX = parseInt(playerElem.getAttribute('data-x'));
+  const playerY = parseInt(playerElem.getAttribute('data-y'));
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
 
   const gameStyle = window.getComputedStyle(gameElem);
-  const gameCols = gameStyle.getPropertyValue("grid-template-columns").split(" ").length;
-  const gameRows = gameStyle.getPropertyValue("grid-template-rows").split(" ").length;
+  const gameCols = gameStyle.getPropertyValue('grid-template-columns').split(' ').length;
+  const gameRows = gameStyle.getPropertyValue('grid-template-rows').split(' ').length;
   const centerCol = Math.ceil(gameCols / 2) - playerX;
   const centerRow = Math.ceil(gameRows / 2) - playerY;
   
   for (const tileElem of gameElem.children) {
     // set tile sprite
-    let tileSpriteX = parseInt(tileElem.getAttribute("data-sprite-x"));
-    let tileSpriteY = parseInt(tileElem.getAttribute("data-sprite-y"));
+    let tileSpriteX = parseInt(tileElem.getAttribute('data-sprite-x'));
+    let tileSpriteY = parseInt(tileElem.getAttribute('data-sprite-y'));
 
     if (!isNaN(tileSpriteX))
       playerElem.style.backgroundPositionX = `calc(${tileSpriteX} * -100%)`;
@@ -160,8 +160,8 @@ function displayWorld() {
       playerElem.style.backgroundPositionY = `calc(${tileSpriteY} * -100%)`;
 
     // place tiles
-    let tileX = Number(tileElem.getAttribute("data-x"));
-    let tileY = Number(tileElem.getAttribute("data-y"));
+    let tileX = Number(tileElem.getAttribute('data-x'));
+    let tileY = Number(tileElem.getAttribute('data-y'));
     
     if (!isNaN(parseInt(tileX)))
       tileElem.style.gridColumn = tileX + centerCol;
@@ -174,47 +174,47 @@ function displayWorld() {
         tileElem.style.gridRow    < 1 ||
         tileElem.style.gridRow    > gameRows
     ) {
-      tileElem.classList.add("invisible");
+      tileElem.classList.add('invisible');
     } else {
-      tileElem.classList.remove("invisible");
+      tileElem.classList.remove('invisible');
     }
   }
 }
 
 function handleInput(key) {
-  const gameElem = document.querySelector("#game");
+  const gameElem = document.querySelector('#game');
   if (gameElem === null) return;
-  const playerElem = gameElem.querySelector(".player");
+  const playerElem = gameElem.querySelector('.player');
   if (playerElem === null) return;
 
-  const playerX = Number(playerElem.getAttribute("data-x"));
-  const playerY = Number(playerElem.getAttribute("data-y"));
+  const playerX = Number(playerElem.getAttribute('data-x'));
+  const playerY = Number(playerElem.getAttribute('data-y'));
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
   
   switch (key) {
-    case "d":
+    case 'd':
       playerElem.dataset.x = playerX + 1;
       playerElem.dataset.spriteY = 2;
       break;
-    case "a":
+    case 'a':
       playerElem.dataset.x = playerX - 1;
       playerElem.dataset.spriteY = 1;
       break;
-    case "s":
+    case 's':
       playerElem.dataset.y = playerY + 1;
       playerElem.dataset.spriteY = 0;
       break;
-    case "w":
+    case 'w':
       playerElem.dataset.y = playerY - 1;
       playerElem.dataset.spriteY = 3;
       break;
-    case " ":
+    case ' ':
       clickNearTile();
       break;
     case "n":
       // debug night mode
-      const npcs = game.querySelectorAll(".npc");
+      const npcs = game.querySelectorAll('.npc');
       for (const npc of npcs) {
         npc.classList.remove("npc");
         npc.classList.add("enemy");
@@ -224,13 +224,13 @@ function handleInput(key) {
 }
 
 function clickNearTile() {
-  const gameElem = document.querySelector("#game");
+  const gameElem = document.querySelector('#game');
   if (gameElem === null) return;
-  const playerElem = gameElem.querySelector(".player");
+  const playerElem = gameElem.querySelector('.player');
   if (playerElem === null) return;
 
-  const playerX = Number(playerElem.getAttribute("data-x"));
-  const playerY = Number(playerElem.getAttribute("data-y"));
+  const playerX = Number(playerElem.getAttribute('data-x'));
+  const playerY = Number(playerElem.getAttribute('data-y'));
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
   
@@ -247,7 +247,7 @@ function clickNearTile() {
 }
 
 // function gameMoveObjects() {
-//   const gameElem = document.querySelector("#game");
+//   const gameElem = document.querySelector('#game');
 //   if (gameElem === null) return;
 
 //   // move cars
