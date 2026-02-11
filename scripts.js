@@ -16,6 +16,7 @@ function shuffleArray(array) {
 let classData = [];
 const numNpcs = 4;
 let theme = 0;
+let playerDir = { x: 0, y: 1 };
 
 populateWorld();
 
@@ -198,18 +199,26 @@ function handleInput(key) {
     case 'd':
       playerElem.dataset.x = playerX + 1;
       playerElem.dataset.spriteY = 2;
+      playerDir.x = 1;
+      playerDir.y = 0;
       break;
     case 'a':
       playerElem.dataset.x = playerX - 1;
       playerElem.dataset.spriteY = 1;
+      playerDir.x = -1;
+      playerDir.y = 0;
       break;
     case 's':
       playerElem.dataset.y = playerY + 1;
       playerElem.dataset.spriteY = 0;
+      playerDir.x = 0;
+      playerDir.y = 1;
       break;
     case 'w':
       playerElem.dataset.y = playerY - 1;
       playerElem.dataset.spriteY = 3;
+      playerDir.x = 0;
+      playerDir.y = -1;
       break;
     case ' ':
       clickNearTile();
@@ -228,13 +237,8 @@ function clickNearTile() {
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
   
-  // get neighbouring tile
   let tileElem;
-  tileElem =
-    gameElem.querySelector(`[data-x="${playerX + 1}"][data-y="${playerY}"]`) ||
-    gameElem.querySelector(`[data-x="${playerX - 1}"][data-y="${playerY}"]`) ||
-    gameElem.querySelector(`[data-x="${playerX}"][data-y="${playerY + 1}"]`) ||
-    gameElem.querySelector(`[data-x="${playerX}"][data-y="${playerY - 1}"]`);
+  tileElem = gameElem.querySelector(`[data-x="${playerX + playerDir.x}"][data-y="${playerY + playerDir.y}"]`);
   if (tileElem === null) return;
 
   tileElem.click();
@@ -253,7 +257,7 @@ function onToggleTheme() {
   if (theme === 0) {
     const bodyElem = document.querySelector('body');
     if (bodyElem === null) return;
-    bodyElem.classList.add("night");
+    bodyElem.classList.add('night');
 
     const npcs = document.querySelectorAll('.npc');
     for (const npc of npcs) {
@@ -265,7 +269,7 @@ function onToggleTheme() {
   else {
     const bodyElem = document.querySelector('body');
     if (bodyElem === null) return;
-    bodyElem.classList.remove("night");
+    bodyElem.classList.remove('night');
 
     const enemies = document.querySelectorAll('.enemy');
     for (const enemy of enemies) {
