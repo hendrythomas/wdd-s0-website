@@ -170,115 +170,121 @@ body.night .content::after {
   grid-template-rows:    repeat(var(--rows), var(--tile-size));
   height: auto;
   width:  auto;
+  
+  .invisible {
+    display: none;
+  }
+
+  * {
+    --sheet-cols: 1;
+    --sheet-rows: 1;
+    width: 100%;
+    height: 100%;
+    background-size:
+      calc(var(--sheet-cols) * 100%)
+      calc(var(--sheet-rows) * 100%);
+    image-rendering: pixelated;
+    text-align: center;
+    align-content: center;
+    color: var(--text);
+    cursor: pointer;
+    transition: opacity 0.2s ease-out;
+    @starting-style {
+      opacity: 0;
+    }
+  }
+  :focus-visible {
+    filter:
+      brightness(120%)
+      drop-shadow(0 0px 8px #FFFFFF);
+  }
+
+  .player {
+    background-image: url('assets/hero.png');
+    --sheet-cols: 3;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(3 * -100%);
+  }
+  .chest {
+    background-image: url('assets/chest.png');
+    --sheet-cols: 1;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(3 * -100%);
+  }
+  .sign {
+    background-image: url('assets/sign.png');
+    --sheet-cols: 1;
+    --sheet-rows: 1;
+  }
+  .npc.t1 {
+    background-image: url('assets/npc1.png');
+    --sheet-cols: 3;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(0 * -100%);
+  }
+  .npc.t2 {
+    background-image: url('assets/npc2.png');
+    --sheet-cols: 3;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(0 * -100%);
+  }
+  .npc.t3 {
+    background-image: url('assets/npc3.png');
+    --sheet-cols: 3;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(0 * -100%);
+  }
+  .npc.t4 {
+    background-image: url('assets/clown.png');
+    --sheet-cols: 1;
+    --sheet-rows: 1;
+  }
+  .enemy.t1 {
+    background-image: url('assets/enemy1.png');
+    --sheet-cols: 3;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(0 * -100%);
+  }
+  .enemy.t2 {
+    background-image: url('assets/enemy2.png');
+    --sheet-cols: 3;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(0 * -100%);
+  }
+  .enemy.t3 {
+    background-image: url('assets/enemy3.png');
+    --sheet-cols: 3;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(0 * -100%);
+  }
+  .enemy.t4 {
+    background-image: url('assets/enemy4.png');
+    --sheet-cols: 3;
+    --sheet-rows: 4;
+    background-position:
+      calc(0 * -100%)
+      calc(0 * -100%);
+  }
 }
 @keyframes game-to-right {
     0% { margin-left: var(--tile-size); }
   100% { margin-left: 0; }
-}
-
-.game > * {
-  --sheet-cols: 1;
-  --sheet-rows: 1;
-  width: 100%;
-  height: 100%;
-  background-size:
-    calc(var(--sheet-cols) * 100%)
-    calc(var(--sheet-rows) * 100%);
-  image-rendering: pixelated;
-  text-align: center;
-  align-content: center;
-  color: var(--text);
-  cursor: pointer;
-  transition: opacity 0.2s ease-out;
-  @starting-style {
-    opacity: 0;
-  }
-}
-.game > .invisible {
-  display: none;
-}
-
-.game .player {
-  background-image: url('assets/hero.png');
-  --sheet-cols: 3;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(3 * -100%);
-}
-.game .chest {
-  background-image: url('assets/chest.png');
-  --sheet-cols: 1;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(3 * -100%);
-}
-.game .sign {
-  background-image: url('assets/sign.png');
-  --sheet-cols: 1;
-  --sheet-rows: 1;
-}
-.game .npc.t1 {
-  background-image: url('assets/npc1.png');
-  --sheet-cols: 3;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(0 * -100%);
-}
-.game .npc.t2 {
-  background-image: url('assets/npc2.png');
-  --sheet-cols: 3;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(0 * -100%);
-}
-.game .npc.t3 {
-  background-image: url('assets/npc3.png');
-  --sheet-cols: 3;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(0 * -100%);
-}
-.game .npc.t4 {
-  background-image: url('assets/clown.png');
-  --sheet-cols: 1;
-  --sheet-rows: 1;
-}
-.game .enemy.t1 {
-  background-image: url('assets/enemy1.png');
-  --sheet-cols: 3;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(0 * -100%);
-}
-.game .enemy.t2 {
-  background-image: url('assets/enemy2.png');
-  --sheet-cols: 3;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(0 * -100%);
-}
-.game .enemy.t3 {
-  background-image: url('assets/enemy3.png');
-  --sheet-cols: 3;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(0 * -100%);
-}
-.game .enemy.t4 {
-  background-image: url('assets/enemy4.png');
-  --sheet-cols: 3;
-  --sheet-rows: 4;
-  background-position:
-    calc(0 * -100%)
-    calc(0 * -100%);
 }
 
 
