@@ -15,12 +15,14 @@ function shuffleArray(array) {
 
 let classData = [];
 const numNpcs = 4;
+let theme = 0;
 
 populateWorld();
 
 document.addEventListener('DOMContentLoaded', () => {
   setGridSize();
   displayWorld();
+  addToggleTheme();
 });
 
 addEventListener('resize', (e) => {
@@ -212,14 +214,6 @@ function handleInput(key) {
     case ' ':
       clickNearTile();
       break;
-    case "n":
-      // debug night mode
-      const npcs = game.querySelectorAll('.npc');
-      for (const npc of npcs) {
-        npc.classList.remove("npc");
-        npc.classList.add("enemy");
-      }
-      break;
   }
 }
 
@@ -244,6 +238,42 @@ function clickNearTile() {
   if (tileElem === null) return;
 
   tileElem.click();
+}
+
+function addToggleTheme() {
+  const toggleThemeElem = document.querySelector('#toggle-theme');
+  if (toggleThemeElem === null) return;
+
+  toggleThemeElem.addEventListener('change', () => {
+    onToggleTheme();
+  })
+}
+
+function onToggleTheme() {
+  if (theme === 0) {
+    const contentElem = document.querySelector('#content');
+    if (contentElem === null) return;
+    contentElem.classList.add("night");
+
+    const npcs = document.querySelectorAll('.npc');
+    for (const npc of npcs) {
+      npc.classList.remove('npc');
+      npc.classList.add('enemy');
+    }
+    theme = 1;
+  }
+  else {
+    const contentElem = document.querySelector('#content');
+    if (contentElem === null) return;
+    contentElem.classList.remove("night");
+
+    const enemies = document.querySelectorAll('.enemy');
+    for (const enemy of enemies) {
+      enemy.classList.remove('enemy');
+      enemy.classList.add('npc');
+    }
+    theme = 0;
+  }
 }
 
 // function gameMoveObjects() {
