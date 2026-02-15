@@ -17,25 +17,26 @@ let classData = [];
 const numNpcs = 4;
 let theme = 0;
 let playerDir = { x: 0, y: 1 };
-const spawnDistance = 4;
+const spawnDistance = 3;
 
 populateWorld();
 
 document.addEventListener('DOMContentLoaded', () => {
   setGridSize();
-  displayWorld();
+  drawWorld();
+  setInterval(moveTiles, 3000);
   addToggleTheme();
 });
 
 addEventListener('resize', (e) => {
   setGridSize();
-  displayWorld();
+  drawWorld();
 });
 
 document.addEventListener('keydown', (e) => {
   const key = e.key.toLowerCase()
   handleInput(key);
-  displayWorld();
+  drawWorld();
 });
 
 function populateWorld() {
@@ -67,9 +68,8 @@ function populateWorld() {
       const html = `<a class="npc t${npcIndex}" href="#profile" onclick="loadStudent('${student.id}')" data-x="${placeX}" data-y="${placeY}"></a>`;
       gameElem.insertAdjacentHTML('beforeend', html);
     }
-
-    // TODO: better async syntax
-    displayWorld();
+    
+    drawWorld();
   });
 }
 
@@ -107,7 +107,7 @@ function loadStudent(id) {
     if (data.name) {
       nameElem.textContent = data.name;
     } else {
-      nameElem.textContent = "???";
+      nameElem.textContent = '???';
     }
   }
 
@@ -123,7 +123,7 @@ function loadStudent(id) {
     if (data.github_handle) {
       githubElem.textContent = data.github_handle;
     } else {
-      githubElem.textContent = "No class";
+      githubElem.textContent = 'No class';
     }
   }
   
@@ -131,7 +131,7 @@ function loadStudent(id) {
     if (data.birthdate) {
       birthdateElem.textContent = data.birthdate;
     } else {
-      birthdateElem.textContent = "???";
+      birthdateElem.textContent = '???';
     }
   }
 
@@ -142,7 +142,7 @@ function loadStudent(id) {
     if (data.fav_soup) {
       soupElem.textContent = data.fav_soup;
     } else {
-      soupElem.textContent = "none";
+      soupElem.textContent = 'none';
     }
   }
 
@@ -150,7 +150,7 @@ function loadStudent(id) {
     if (data.fav_fruit) {
       fruitElem.textContent = data.fav_fruit;
     } else {
-      fruitElem.textContent = "none";
+      fruitElem.textContent = 'none';
     }
   }
 }
@@ -176,15 +176,15 @@ function setGridSize() {
   gameElem.style.setProperty('--rows', gameRows);
 }
 
-function displayWorld() {
+function drawWorld() {
   const gameElem = document.querySelector('#game');
   if (gameElem === null) return;
   const playerElem = gameElem.querySelector('.player');
   if (playerElem === null) return;
 
   // center on player
-  const playerX = parseInt(playerElem.getAttribute('data-x'));
-  const playerY = parseInt(playerElem.getAttribute('data-y'));
+  const playerX = parseInt(playerElem.dataset.x);
+  const playerY = parseInt(playerElem.dataset.y);
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
 
@@ -196,17 +196,17 @@ function displayWorld() {
   
   for (const tileElem of gameElem.children) {
     // set tile sprite
-    let tileSpriteX = parseInt(tileElem.getAttribute('data-sprite-x'));
-    let tileSpriteY = parseInt(tileElem.getAttribute('data-sprite-y'));
+    let tileSpriteX = parseInt(tileElem.dataset.spriteX);
+    let tileSpriteY = parseInt(tileElem.dataset.spriteY);
 
     if (!isNaN(tileSpriteX))
-      playerElem.style.backgroundPositionX = `calc(${tileSpriteX} * -100%)`;
+      tileElem.style.backgroundPositionX = `calc(${tileSpriteX} * -100%)`;
     if (!isNaN(tileSpriteY))
-      playerElem.style.backgroundPositionY = `calc(${tileSpriteY} * -100%)`;
+      tileElem.style.backgroundPositionY = `calc(${tileSpriteY} * -100%)`;
 
     // place tiles
-    let tileX = Number(tileElem.getAttribute('data-x'));
-    let tileY = Number(tileElem.getAttribute('data-y'));
+    let tileX = Number(tileElem.dataset.x);
+    let tileY = Number(tileElem.dataset.y);
     
     if (!isNaN(parseInt(tileX)))
       tileElem.style.gridColumn = tileX + centerCol;
@@ -226,14 +226,40 @@ function displayWorld() {
   }
 }
 
+function moveTiles() {
+  const npcElems = document.querySelectorAll('.npc:not(.invisible), .enemy:not(.invisible)');
+  for (const npcElem of npcElems) {
+    const direction = randInt(0, 4);
+    switch(direction) {
+      case 0:
+        npcElem.dataset.x = Number(npcElem.dataset.x) + 1;
+        npcElem.dataset.spriteY = 2;
+        break;
+      case 1:
+        npcElem.dataset.x = Number(npcElem.dataset.x) - 1;
+        npcElem.dataset.spriteY = 1;
+        break;
+      case 2:
+        npcElem.dataset.y = Number(npcElem.dataset.y) + 1;
+        npcElem.dataset.spriteY = 0;
+        break;
+      case 3:
+        npcElem.dataset.y = Number(npcElem.dataset.y) - 1;
+        npcElem.dataset.spriteY = 3;
+        break;
+    }
+  }
+  drawWorld();
+}
+
 function handleInput(key) {
   const gameElem = document.querySelector('#game');
   if (gameElem === null) return;
   const playerElem = gameElem.querySelector('.player');
   if (playerElem === null) return;
 
-  const playerX = Number(playerElem.getAttribute('data-x'));
-  const playerY = Number(playerElem.getAttribute('data-y'));
+  const playerX = Number(playerElem.dataset.x);
+  const playerY = Number(playerElem.dataset.y);
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
   
@@ -274,8 +300,8 @@ function useNearTile() {
   const playerElem = gameElem.querySelector('.player');
   if (playerElem === null) return;
 
-  const playerX = Number(playerElem.getAttribute('data-x'));
-  const playerY = Number(playerElem.getAttribute('data-y'));
+  const playerX = Number(playerElem.dataset.x);
+  const playerY = Number(playerElem.dataset.y);
   if (isNaN(playerX)) return;
   if (isNaN(playerY)) return;
   
@@ -283,7 +309,7 @@ function useNearTile() {
   tileElem = gameElem.querySelector(`[data-x="${playerX + playerDir.x}"][data-y="${playerY + playerDir.y}"]`);
   if (tileElem === null) return;
 
-  if (tileElem.classList.contains("enemy")) {
+  if (tileElem.classList.contains('enemy')) {
     tileElem.remove();
   } else {
     tileElem.click();
@@ -305,10 +331,10 @@ function onToggleTheme() {
     if (bodyElem === null) return;
     bodyElem.classList.add('night');
 
-    const npcs = document.querySelectorAll('.npc');
-    for (const npc of npcs) {
-      npc.classList.remove('npc');
-      npc.classList.add('enemy');
+    const npcElems = document.querySelectorAll('.npc');
+    for (const npcElem of npcElems) {
+      npcElem.classList.remove('npc');
+      npcElem.classList.add('enemy');
     }
     theme = 1;
   }
