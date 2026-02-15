@@ -26,13 +26,18 @@ body.night {
   background-color: yellowgreen;
   overflow: hidden;
 }
-body.night .content::after {
+.content::after {
   content: "";
   position: fixed;
   width:  100%;
   height: 100%;
   backdrop-filter: brightness(50%) sepia(50%);
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 1s ease-out;
+}
+body.night .content::after {
+  opacity: 1;
 }
 
 .toggle {
@@ -100,6 +105,14 @@ body.night .content::after {
 
 .main > :not(:target)[id] {
   display: none;
+}
+
+.back {
+  cursor: pointer;
+}
+.back:hover,
+.back:focus-visible {
+  text-shadow: none;
 }
 
 .profile {
