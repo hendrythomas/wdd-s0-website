@@ -17,7 +17,7 @@ let classData = [];
 const numNpcs = 4;
 let theme = 0;
 let playerDir = { x: 0, y: 1 };
-const spawnDistance = 3;
+const spawnDistance = 4;
 
 populateWorld();
 
@@ -229,7 +229,7 @@ function drawWorld() {
 function moveTiles() {
   const npcElems = document.querySelectorAll('.npc:not(.invisible), .enemy:not(.invisible)');
   for (const npcElem of npcElems) {
-    const direction = randInt(0, 4);
+    const direction = randInt(0, 8);
     switch(direction) {
       case 0:
         npcElem.dataset.x = Number(npcElem.dataset.x) + 1;
@@ -246,6 +246,9 @@ function moveTiles() {
       case 3:
         npcElem.dataset.y = Number(npcElem.dataset.y) - 1;
         npcElem.dataset.spriteY = 3;
+        break;
+      default:
+        npcElem.dataset.spriteY = 0;
         break;
     }
   }
