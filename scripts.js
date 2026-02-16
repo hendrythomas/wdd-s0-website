@@ -24,7 +24,7 @@ populateWorld();
 document.addEventListener('DOMContentLoaded', () => {
   setGridSize();
   drawWorld();
-  setInterval(moveTiles, 3000);
+  setInterval(moveTiles, 2000);
   addToggleTheme();
 });
 
@@ -65,7 +65,7 @@ function populateWorld() {
       }
       
       const npcIndex = randInt(0, numNpcs) + 1;
-      const html = `<a class="npc t${npcIndex}" href="#profile" onclick="loadStudent('${student.id}')" data-x="${placeX}" data-y="${placeY}"></a>`;
+      const html = `<a class="npc t${npcIndex}" href="#profile" onclick="loadStudent('${student.id}')" aria-label="Profiel ${student.id}" data-x="${placeX}" data-y="${placeY}"></a>`;
       gameElem.insertAdjacentHTML('beforeend', html);
     }
     
@@ -229,7 +229,7 @@ function drawWorld() {
 function moveTiles() {
   const npcElems = document.querySelectorAll('.npc:not(.invisible), .enemy:not(.invisible)');
   for (const npcElem of npcElems) {
-    const direction = randInt(0, 8);
+    const direction = randInt(0, 12);
     switch(direction) {
       case 0:
         npcElem.dataset.x = Number(npcElem.dataset.x) + 1;
@@ -248,7 +248,6 @@ function moveTiles() {
         npcElem.dataset.spriteY = 3;
         break;
       default:
-        npcElem.dataset.spriteY = 0;
         break;
     }
   }
